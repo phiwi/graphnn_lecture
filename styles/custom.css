@@ -1,9 +1,7 @@
 :root {
 	--slidev-background-color: #ffffff;
-}
-
-:root {
-	--slidev-background-color: #ffffff;
+	--slidev-code-background: #f8fafc;
+	--slidev-code-border: #e2e8f0;
 }
 
 .slidev-page,
@@ -11,6 +9,7 @@
 	background-color: #ffffff !important;
 }
 
+/* Enhanced Callouts */
 .callout {
 	border-radius: 0.5rem;
 	padding: 0.95rem 1.2rem;
@@ -19,6 +18,11 @@
 	background: var(--callout-bg, #f1f5f9);
 	box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
 	color: #0f172a;
+	transition: transform 0.2s ease;
+}
+
+.callout:hover {
+	transform: translateX(4px);
 }
 
 .callout-title {
@@ -51,4 +55,122 @@
 .callout-warning {
 	--callout-accent: #f59e0b;
 	--callout-bg: #fffbeb;
+}
+
+/* Enhanced Code Blocks */
+pre.shiki {
+	border-radius: 0.5rem;
+	padding: 1.2rem !important;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+	border: 1px solid var(--slidev-code-border);
+}
+
+/* Better Tables */
+table {
+	border-collapse: separate;
+	border-spacing: 0;
+	border-radius: 0.5rem;
+	overflow: hidden;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+thead th {
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	color: white;
+	font-weight: 600;
+	padding: 0.75rem 1rem;
+	text-align: left;
+}
+
+tbody tr {
+	transition: background-color 0.2s ease;
+}
+
+tbody tr:nth-child(even) {
+	background-color: #f8fafc;
+}
+
+tbody tr:hover {
+	background-color: #e0e7ff;
+}
+
+tbody td {
+	padding: 0.75rem 1rem;
+	border-bottom: 1px solid #e2e8f0;
+}
+
+/* Section Dividers */
+.slidev-layout.section {
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	color: white;
+}
+
+.slidev-layout.section h1,
+.slidev-layout.section h2 {
+	color: white;
+}
+
+/* Cover Page Enhancement */
+.slidev-layout.cover {
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	color: white;
+}
+
+.slidev-layout.cover h2 {
+	color: white;
+	text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* End Page Enhancement */
+.slidev-layout.end {
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	color: white;
+}
+
+.slidev-layout.end h1,
+.slidev-layout.end h2,
+.slidev-layout.end h3 {
+	color: white;
+}
+
+/* Emoji Enhancement */
+h1, h2, h3, h4 {
+	line-height: 1.4;
+}
+
+/* Grid Improvements */
+.grid {
+	gap: 1.5rem;
+}
+
+/* Emphasis */
+strong {
+	color: #764ba2;
+	font-weight: 600;
+}
+
+/* Lists */
+ul, ol {
+	line-height: 1.8;
+}
+
+/* Mermaid Diagrams */
+.mermaid {
+	background: transparent !important;
+}
+
+/* Smooth Transitions for v-clicks */
+.slidev-vclick-target {
+	transition: all 0.3s ease;
+}
+
+/* Kbd Styling */
+kbd {
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	color: white;
+	padding: 0.2rem 0.5rem;
+	border-radius: 0.25rem;
+	font-size: 0.85em;
+	font-family: monospace;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
