@@ -268,6 +268,24 @@ Label rows/columns explicitly when you sketch `A`; it prevents accidental neighb
 
 - Check: symmetric for undirected graphs, diagonal indicates self-loop
 
+```mermaid
+graph LR
+  A((A)) --- B((B))
+  A --- C((C))
+  B --- C
+  C --- D((D))
+  A --- A
+  B --- B
+  C --- C
+  D --- D
+  style A fill:#f6d365,stroke:#333,stroke-width:2px
+  style B fill:#fda085,stroke:#333,stroke-width:2px
+  style C fill:#b4e1fa,stroke:#333,stroke-width:2px
+  style D fill:#90be6d,stroke:#333,stroke-width:2px
+```
+
+Visualize the topology you will aggregate over before touching the numbers.
+
 ---
 
 ## Step 2 · Aggregate Node A
