@@ -9,10 +9,10 @@ const CALLOUTS = [
 
 export default defineConfig({
   markdown: {
-    config(md) {
+    config(md: any) {
       CALLOUTS.forEach(({ type, label }) => {
         md.use(container, type, {
-          render(tokens, idx) {
+          render(tokens: any[], idx: number) {
             const token = tokens[idx]
             if (token.nesting === 1) {
               const rawInfo = token.info.trim()
@@ -37,8 +37,5 @@ export default defineConfig({
         })
       })
     },
-  },
-  vite: {
-    base: process.env.BASE_PATH ?? '/',
   },
 })

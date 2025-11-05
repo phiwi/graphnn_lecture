@@ -31,9 +31,7 @@ jobs:
         run: npm install
 
       - name: Build Slidev presentation
-        run: npm run build
-        env:
-          BASE_PATH: /graphnn_lecture/
+        run: npm run build -- --base /graphnn_lecture/
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
