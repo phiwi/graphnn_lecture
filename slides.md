@@ -49,6 +49,13 @@ Master's in Medical Informatics · 90 minutes!
 
 ---
 
+## Part 1 · Why Graphs in Medicine
+
+- Connect familiar neural network ideas to relational inductive bias
+- Ground the motivation in concrete biomedical structure before the math
+
+---
+
 ## Why Graphs in Medicine?
 
 ### Why graphs fit biomedical data
@@ -72,22 +79,35 @@ Relational modeling captures shared signal beyond isolated samples.
 
 ## Biomedical Graph Examples
 
-- Biological networks: protein-protein, gene regulatory
-- Molecular graphs: atoms as nodes, bonds as edges
-- Patient similarity networks: edges from shared diagnoses or demographics
-- Knowledge graphs: literature-derived links among diseases, symptoms, drugs
-- Data sources: STRING, DrugBank, MIMIC-III, PubMed Central full-text corpora
-- Structured + unstructured signals fuse into a single relational view of care
+### Biology & chemistry
+
+- Protein-protein and gene regulatory networks
+- Molecular graphs with atoms as nodes and bonds as edges
+
+### Clinical cohorts
+
+- Patient similarity graphs built from shared diagnoses, labs, or demographics
+- Care pathways capturing temporal encounters and co-treatments
+
+### Knowledge synthesis
+
+- Literature-derived knowledge graphs linking diseases, symptoms, and drugs
+- Data sources: STRING, DrugBank, MIMIC-III, PubMed Central full text
+- Fuse structured registries with NLP-extracted relations for one relational view
 
 ---
 
 ## What Do GNNs Predict?
 
-- Node classification: e.g., is a protein implicated in Alzheimer's?
-- Link prediction: e.g., will a new drug interact with a target?
-- Graph classification: e.g., is a molecule toxic?
-- Evaluation typically uses AUROC/AP for node/link tasks and accuracy/F1 for graph tasks
-- Interpretability tools (Grad-CAM, attention heatmaps) help clinicians audit outputs
+| Task | Medical question | Typical metrics |
+|------|------------------|-----------------|
+| Node classification | Is this protein or patient associated with an outcome? | AUROC, average precision |
+| Link prediction | Will a candidate drug interact with a target or disease? | AUROC, Hits@K |
+| Graph classification | Does this molecule or histology tile belong to a class? | Accuracy, F1 |
+
+:::tip
+Pair model scores with interpretability (attention weights, Grad-CAM) so clinical reviewers can audit high-stakes predictions.
+:::
 
 ---
 
@@ -97,6 +117,15 @@ Relational modeling captures shared signal beyond isolated samples.
 - Edges connect patients with cosine similarity > 0.8 in feature space
 - Predict: 12-month survival (node classification)
 - Insights: communities align with staging + comorbid burden, guiding trial stratification
+
+---
+
+## Part 2 · Core GNN Mechanics
+
+- Translate graphs into matrices ready for deep learning
+- Build intuition for message passing before diving into equations
+
+---
 
 ## Core GNN Concepts · Overview
 
@@ -111,6 +140,10 @@ Relational modeling captures shared signal beyond isolated samples.
 - Adjacency matrix `A`: `A[i, j] = 1` if nodes `i` and `j` connect
 - Node feature matrix `X`: each row holds a node's attributes
 - Optional edge features for weighted or directed graphs
+
+:::info{title="Dimensional sanity check"}
+Confirm `A` is `N x N` and `X` is `N x F` so later matrix multiplies (`AX` or `AHW`) stay valid.
+:::
 
 ---
 
@@ -190,6 +223,13 @@ Over-squashing appears when narrow bottlenecks force many paths through a single
 
 ---
 
+## Part 3 · Interactive Practice
+
+- Slow down for a pencil-and-paper message passing walkthrough
+- Surface common implementation gotchas before touching code
+
+---
+
 ## Interactive Exercise · Setup
 
 - Manual message passing walkthrough on a 4-node graph
@@ -210,6 +250,10 @@ Over-squashing appears when narrow bottlenecks force many paths through a single
 - Goal: manual aggregation for node A (no weights, no activation)
 - Analogy: each feature dimension could be lab value z-scores or gene expression levels
 - We will treat the graph as having self-loops to keep each node's own signal
+
+:::tip{title="Pro move"}
+Label rows/columns explicitly when you sketch `A`; it prevents accidental neighbor mix-ups during aggregation.
+:::
 
 ---
 
@@ -242,6 +286,13 @@ Over-squashing appears when narrow bottlenecks force many paths through a single
 - What if we exclude self-loops? include edge weights?
 - How does degree imbalance influence aggregation?
 - Could we sample neighbors (GraphSAGE) to scale to graphs with millions of nodes?
+
+---
+
+## Part 4 · Building Graphs from Text
+
+- Extract structure from unstructured clinical narratives and literature
+- Surface the NLP tooling needed before a GNN ever trains
 
 ---
 
@@ -323,6 +374,13 @@ graph LR
 
 ---
 
+## Part 5 · Medical Use Cases
+
+- Connect abstract mechanics to translational wins clinicians care about
+- Highlight evaluation patterns students can investigate post-lecture
+
+---
+
 ## Medical Use Cases · Snapshot
 
 - Translational impact across drug discovery, patient management, and pathology
@@ -384,6 +442,15 @@ graph LR
 | 2023 | Patient outcomes | EHR similarity graph (90k patients) | AUROC 0.87 vs 0.81 baseline |
 | 2021 | Histopathology | 7k colorectal tiles | Accuracy 92% with scene graphs |
 
+---
+
+## Part 6 · Future Directions
+
+- Step back from case studies to map upcoming research frontiers
+- Frame actionable next steps for students' own projects
+
+---
+
 ## Future Outlook
 
 - Clinical translation demands interpretability, reliability, and integration.
@@ -399,6 +466,14 @@ graph LR
 - Multi-modal fusion: integrate omics, imaging, and clinical text
 - Deployment hurdles: data sharing, privacy, regulatory validation
 - Trustworthy AI: calibrate uncertainty, perform counterfactual testing, and monitor drift post-deployment
+
+---
+
+## Key Takeaways
+
+- Graph structure appears everywhere in biomedicine; model it explicitly
+- Message passing layers are just neighborhood-aware MLPs; watch tensor shapes and normalization
+- Graph construction choices (entities, edges, weights) matter as much as the downstream architecture
 
 ---
 
