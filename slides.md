@@ -16,7 +16,7 @@ themeConfig:
 
 ## Graph Neural Networks in Modern Medicine
 
-Master's in Medical Informatics · 90 minutes
+Master's in Medical Informatics · 90 minutes!
 
 ---
 
