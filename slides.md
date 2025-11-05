@@ -25,6 +25,7 @@ Master's in Medical Informatics · 90 minutes
 </div>
 
 ---
+
 layout: center
 class: text-center
 ---
@@ -35,6 +36,7 @@ class: text-center
 <div>
 
 ### ✅ You know
+
 - Neural networks
 - Backpropagation
 - Loss functions
@@ -43,6 +45,7 @@ class: text-center
 <div>
 
 ### 🎯 Today you'll learn
+
 - **Why** graphs matter
 - **How** GNNs work
 - **Where** they're deployed
@@ -51,6 +54,7 @@ class: text-center
 <div>
 
 ### 💡 Approach
+
 - Light math
 - Heavy intuition
 - Clinical relevance
@@ -87,18 +91,22 @@ SPEAKER NOTES:
 </v-clicks>
 
 ---
+
 layout: two-cols
 ---
 
 ## Agenda & Timing
 
 ### Part 1 (10 min)
+
 🧬 **Why graphs in medicine?**
 
 ### Part 2 (30 min)
+
 ⚙️ **Core GNN mechanics**
 
 ### Part 3 (15 min)
+
 🧮 **Interactive calculation**
 
 ::right::
@@ -106,17 +114,21 @@ layout: two-cols
 <div class="mt-16">
 
 ### Part 4 (10 min)
+
 📝 **Building graphs from text**
 
 ### Part 5 (15 min)
+
 🏥 **Medical use cases**
 
 ### Part 6 (10 min)
+
 💬 **Wrap-up and Q&A**
 
 </div>
 
 ---
+
 layout: section
 ---
 
@@ -146,6 +158,7 @@ Because medicine is fundamentally <span class="text-red-500 font-bold">relationa
 </v-clicks>
 
 ---
+
 layout: two-cols
 ---
 
@@ -314,6 +327,7 @@ Always pair model scores with **interpretability** (attention weights, Grad-CAM)
 :::
 
 ---
+
 layout: fact
 ---
 
@@ -351,6 +365,7 @@ SPEAKER NOTES:
 -->
 
 ---
+
 layout: section
 ---
 
@@ -395,6 +410,7 @@ graph LR
 </v-clicks>
 
 ---
+
 layout: two-cols
 ---
 
@@ -498,6 +514,7 @@ This matrix captures all connections
 </div>
 
 ---
+
 layout: center
 class: text-center
 ---
@@ -524,7 +541,6 @@ In GNNs, every node updates itself by aggregating information from its neighbors
 
 1. **📤 Send Messages**
    - Each node broadcasts its current feature vector to neighbors
-   - Think: "Here's what I know about myself"
 
 2. **📥 Aggregate**
    - Each node collects messages from all neighbors
@@ -532,11 +548,9 @@ In GNNs, every node updates itself by aggregating information from its neighbors
 
 3. **🔄 Transform**
    - Apply learnable weights `W` and activation `σ`
-   - Update: create new, richer representation
 
 4. **🔁 Repeat**
-   - Stack layers → information flows farther
-   - 2 layers = 2-hop neighborhood influence
+   - Stack layers → information flows farther across the graph
 
 </v-clicks>
 
@@ -563,6 +577,7 @@ Message passing injects **relational inductive bias**: nodes continually refine 
 </div>
 
 ---
+
 layout: two-cols
 ---
 
@@ -587,11 +602,11 @@ $$
 
 ::right::
 
-<div class="ml-8">
-
-<v-click>
+<div class="ml-8 mt-0">
 
 ### Why normalize $\tilde{A}$?
+
+<v-click>
 
 $$
 \tilde{A} = D^{-1/2}(A + I)D^{-1/2}
@@ -619,51 +634,13 @@ Same $W^{(l)}$ for all nodes → **permutation invariance**
 
 <!--
 SPEAKER NOTES:
-**Understanding the GNN formula step by step:**
-
-1. **Start with H^(l):** Current node embeddings (N × F matrix)
-   - Each row = one node's feature vector
-   - Initially (layer 0): H^(0) = X (raw features)
-
-2. **Multiply by adjacency: ÃH^(l)**
-   - This is the aggregation step
-   - Each row becomes sum of its neighbors' features
-   - Example: row for node A = sum of features from nodes A, B, C
-
-3. **Transform with weights: (ÃH^(l))W^(l)**
-   - W^(l) is learnable parameter matrix (F × F')
-   - Projects aggregated features to new dimension
-   - Same W applied to ALL nodes (parameter sharing)
-
-4. **Apply activation: σ(...)**
-   - ReLU(x) = max(0, x), GELU is smooth variant
-   - Adds non-linearity (otherwise, stacking layers = one big linear transform)
-
-**The normalization Ã = D^(-1/2)(A + I)D^(-1/2):**
-- D = degree matrix (diagonal, D[i,i] = degree of node i)
-- (A + I) = add self-loops first
-- D^(-1/2) on both sides = symmetric normalization
-- Alternative: D^(-1)A = row normalization (used in GraphSAGE)
-
-**Why normalization matters:**
-- Without it: high-degree nodes get huge values (sum of 100 neighbors vs 2 neighbors)
-- This causes gradient explosion during training
-- Normalization makes updates scale-invariant
-
-**Permutation invariance:**
-- If we shuffle node ordering, output should be equivalent
-- Parameter sharing ensures this: same W for node 1, 2, ..., N
-- Graph structure (A) encodes relationships, not node IDs
-
-**Common questions:**
-Q: "Why not different W for each node?"
-A: Would need N× more parameters, lose generalization, break permutation invariance
-
-Q: "Can we use different activation functions?"
-A: Yes! ReLU, LeakyReLU, GELU, even learnable activations. ReLU is standard for speed.
-
-Q: "What if we stack 10 layers?"
-A: Over-smoothing problem - all nodes become too similar. Usually stop at 2-4 layers.
+**GNN formula breakdown:**
+- H^(l): N × F matrix of current embeddings. Layer 0: H^(0) = X (raw features)
+- ÃH^(l): Aggregation - sum neighbors' features. Example: node A = sum(A,B,C features)
+- (ÃH^(l))W^(l): Transform via learnable F × F' weights. Same W for all nodes (parameter sharing)
+- σ(...): Activation (ReLU, GELU). Adds non-linearity to prevent collapse to linear transform
+- Normalization Ã = D^(-1/2)(A + I)D^(-1/2) prevents gradient explosion from high-degree nodes
+- Permutation invariance: Graph structure (A) encodes relationships, not node IDs
 -->
 
 ---
@@ -723,67 +700,20 @@ SPEAKER NOTES:
 - GNNs: deeper often = worse (2-4 layers typical)
 - Why? Over-smoothing and over-squashing
 
-**Over-smoothing explained:**
-- After k layers, nodes "see" k-hop neighbors
-- In densely connected graphs, k=4 might reach ENTIRE graph
-- All nodes aggregate from same global pool → all embeddings become similar
-- Loss of local structure information
-- Mathematically: node embeddings converge to graph-level statistic
+**Over-smoothing:** After k layers, nodes "see" k-hop neighbors. In dense graphs, k=4 reaches entire graph → all embeddings become similar (converge to graph-level statistic). Example: 6-layer GNN on social network sees everyone.
 
-**Example:**
-- Social network: 6 degrees of separation
-- 6-layer GNN: every person sees everyone's features
-- All embeddings become average of entire population → useless
+**Over-squashing:** Information bottleneck when many paths go through hub nodes. Hub must compress 100 messages into fixed-dimension embedding = information loss (Alon & Yahav, 2021).
 
-**Over-squashing explained:**
-- Information bottleneck problem
-- Imagine 100 nodes trying to send messages through 1 hub node
-- Hub must compress 100 messages into its fixed-dimension embedding
-- Information loss/distortion (like squashing watermelon through straw)
-- Named by Alon & Yahav (2021)
-
-**Why 2-3 layers works:**
-- Most real graphs have small diameter (power-law, small-world)
-- Local neighborhoods (1-2 hops) contain most relevant info
-- Beyond that: noise and over-smoothing dominate
-- Medical example: patient's immediate similar patients more relevant than 3rd-degree similarities
+**Why 2-3 layers works:** Most real graphs have small diameter. Local neighborhoods (1-2 hops) contain most relevant info. Beyond that: noise dominates.
 
 **Mitigation strategies:**
+1. Residual connections: H^(l+1) = H^(l) + GNN_layer(H^(l))
+2. Jump knowledge: Concatenate [H^(1), H^(2), H^(3)]
+3. Attention: Focus on informative neighbors
+4. Adaptive sampling (GraphSAGE): Sample fixed k neighbors
+5. Edge rewiring: Add shortcuts, remove redundant edges
 
-1. **Residual connections:**
-   - H^(l+1) = H^(l) + GNN_layer(H^(l))
-   - Keeps original features accessible
-   - Like ResNets
-
-2. **Jump knowledge:**
-   - Concatenate outputs from ALL layers
-   - Final = [H^(1), H^(2), H^(3)]
-   - Lets model choose which neighborhood scale matters
-
-3. **Attention:**
-   - Focus on informative neighbors, ignore others
-   - Reduces effective path lengths
-
-4. **Adaptive sampling (GraphSAGE):**
-   - Sample fixed k neighbors per layer
-   - Bounds computation and information bottleneck
-   - Trade-off: approximation vs scalability
-
-5. **Edge rewiring:**
-   - Add shortcuts to reduce diameter
-   - Remove redundant edges
-   - Preprocessing step
-
-**Rule of thumb:**
-- Start with 2 layers
-- Add 3rd if you have large sparse graphs
-- Don't go beyond 4 without special architecture tricks
-- Always monitor: are test embeddings becoming too similar?
-
-**Common student mistake:**
-"My model isn't working, let me add more layers!"
-- In GNNs, this often makes it WORSE
-- Try: better features, attention, or architectural tricks instead
+**Rule of thumb:** Start with 2 layers. Add 3rd for large sparse graphs. Don't exceed 4 without architecture tricks.
 -->
 
 ---
@@ -833,58 +763,26 @@ Not all neighbors are equally informative
 
 <!--
 SPEAKER NOTES:
-**The attention mechanism intuition:**
-- Standard GNN: all neighbors weighted equally (or just by degree)
-- GAT: learns different weight for each neighbor edge
-- Like "paying attention" to relevant neighbors, ignoring noise
+**GAT attention mechanism:**
+- Standard GNN: neighbors weighted equally. GAT: learns different weight per edge
+- Attention score: α_ij = softmax(LeakyReLU(a^T [W h_i || W h_j]))
+- Aggregate: h_i' = σ(Σ_j α_ij W h_j)
+- Weights α_ij computed per edge, data-dependent
 
-**How GAT attention works (simplified):**
-1. For node i and neighbor j, compute attention score:
-   α_ij = softmax(LeakyReLU(a^T [W h_i || W h_j]))
-   - Concatenate transformed features of i and j
-   - Pass through learned attention vector 'a'
-   - Softmax normalizes across all neighbors of i
+**Multi-head attention:** Use K parallel attention mechanisms (like Transformers). Each head learns different relationships. Concatenate/average outputs.
 
-2. Aggregate using weighted sum:
-   h_i' = σ(Σ_j α_ij W h_j)
+**Clinical example:** Patient A (DM, HTN, age 65) neighbors:
+- Neighbor 1 (DM, HTN, 67): HIGH attention (very similar)
+- Neighbor 2 (DM, 23): MEDIUM (shares DM, age different)
+- Neighbor 3 (64): LOW (only age matches)
 
-**Key differences from standard GNN:**
-- Weights α_ij are computed per edge, not fixed
-- Different neighbor pairs get different attention
-- Attention is data-dependent (learns what's important)
+**Explainability benefit:** Attention weights α_ij ∈ [0,1] are interpretable. Can visualize which similar patients influenced prediction.
 
-**Multi-head attention:**
-- Like Transformers: use multiple attention mechanisms in parallel
-- Each "head" learns different relationships
-- Concatenate or average outputs
-- Improves robustness and expressiveness
-
-**Clinical example breakdown:**
-- Patient A has: diabetes (DM), hypertension (HTN), age 65
-- Neighbor 1: DM, HTN, age 67 → HIGH attention (very similar)
-- Neighbor 2: DM, age 23 → MEDIUM attention (shares DM, but age very different)
-- Neighbor 3: age 64 → LOW attention (only age matches, diseases different)
-- Model learns: disease overlap more important than age for outcome prediction
-
-**Explainability benefit:**
-- Attention weights are interpretable: α_ij ∈ [0,1]
-- Can visualize: "This prediction relied heavily on these 3 similar patients"
-- Crucial for clinical adoption: shows reasoning, not just black box
-
-**Trade-offs:**
-- More parameters than vanilla GNN
-- Slower training (must compute attention for every edge)
-- But usually worth it for performance and interpretability
-
-**Common questions:**
-Q: "Is this the same as Transformer attention?"
-A: Same principle, but GAT attention is defined over graph edges, Transformers over sequence positions
-
-Q: "Can we use attention on heterogeneous graphs?"
-A: Yes! Different attention heads for different edge types. Very powerful.
+**Trade-offs:** More parameters, slower training. But worth it for performance and interpretability.
 -->
 
 ---
+
 layout: section
 ---
 
@@ -898,11 +796,12 @@ Surface common implementation gotchas before touching code
 </div>
 
 ---
+
 layout: center
 class: text-center
 ---
 
-# 🧮 Let's Calculate Together!
+# 🧮 Let's Calculate Together
 
 <div class="text-2xl my-8 opacity-70">
 Manual message passing on a 4-node graph
@@ -917,6 +816,7 @@ Build intuition before we abstract to tensors
 </v-click>
 
 ---
+
 layout: two-cols
 ---
 
@@ -960,17 +860,16 @@ Calculate updated features for **Node A** using simple averaging (no weights, no
 ### 🏥 Medical Analogy
 
 Think of each dimension as:
+
 - **Dim 1:** HbA1c z-score
 - **Dim 2:** eGFR z-score
-
-Node A "learns" from similar patients
 
 </v-click>
 
 <v-click>
 
 :::tip{title="Pro tip"}
-Label adjacency matrix rows/columns clearly to avoid neighbor mix-ups!
+Label adjacency matrix rows/columns clearly!
 :::
 
 </v-click>
@@ -979,25 +878,13 @@ Label adjacency matrix rows/columns clearly to avoid neighbor mix-ups!
 
 <!--
 SPEAKER NOTES:
-**HbA1c (Hemoglobin A1c):**
-- Blood test measuring average glucose levels over past 2-3 months
-- Gold standard for diabetes monitoring
-- Normal: <5.7%, Prediabetes: 5.7-6.4%, Diabetes: ≥6.5%
-- Why useful: captures long-term glycemic control, not just snapshot
+**HbA1c:** Blood test for average glucose over 2-3 months. Normal <5.7%, Diabetes ≥6.5%
 
-**Z-score:**
-- Standardized score = (value - population mean) / standard deviation
-- Tells you "how many standard deviations away from average"
-- Example: z-score of +2 means "2 SD above average" (97.5th percentile)
-- Why we use it: puts different measurements on same scale (HbA1c % and eGFR ml/min become comparable)
+**Z-score:** (value - mean) / SD. Standardizes different units to same scale.
 
-**eGFR (estimated Glomerular Filtration Rate):**
-- Measures kidney function (how well kidneys filter blood)
-- Normal: >90 ml/min/1.73m², CKD stage 3: 30-59, ESRD: <15
-- Calculated from creatinine, age, sex, race
+**eGFR:** Kidney function. Normal >90 ml/min, CKD <60, ESRD <15
 
-**Why this matters for GNNs:**
-In real medical graphs, we standardize all lab values to z-scores so message passing isn't dominated by variables with large absolute ranges (e.g., glucose in mg/dL vs potassium in mEq/L)
+**Why standardize:** Message passing needs comparable scales across all features.
 -->
 
 ---
@@ -1059,29 +946,17 @@ graph LR
 
 <!--
 SPEAKER NOTES:
-**What is "topology"?**
-- Topology = the arrangement/structure of connections in a graph
-- NOT about physical positions or distances, but about "who connects to whom"
-- Think: social network topology = who's friends with whom (not where they live)
-- In medical context: which patients share characteristics, which proteins interact
+**Topology:** Structure of connections ("who connects to whom"), not physical positions.
 
-**Reading the adjacency matrix:**
-- Row i, Column j = 1 means there's an edge from node i to node j
-- Symmetric matrix (A[i,j] = A[j,i]) means undirected graph (friendship, not follower relationship)
-- Diagonal = 1 means self-loops (node connects to itself, keeps its own features during aggregation)
+**Adjacency matrix:** A[i,j]=1 means edge from i to j. Symmetric = undirected.
 
-**Why self-loops matter:**
-- Without self-loops: a node only sees neighbors, loses its own information
-- With self-loops: node aggregates neighbors AND itself
-- Mathematically: (A + I) where I is identity matrix
+**Self-loops:** Diagonal=1 keeps node's own features during aggregation. Formula: (A + I)
 
-**Common student confusion:**
-"Why do we need a matrix? Can't we just list edges?"
-- Answer: Yes! Edge list format exists. But matrix form makes aggregation = matrix multiplication (very fast on GPUs)
-- Trade-off: sparse graphs waste memory in matrix form, but computation is cleaner
+**Matrix vs edge list:** Matrix enables fast aggregation via matrix multiplication on GPUs.
 -->
 
 ---
+
 layout: center
 ---
 
@@ -1150,6 +1025,7 @@ Node A has moved toward its neighborhood community!
 </v-clicks>
 
 ---
+
 layout: section
 ---
 
@@ -1163,6 +1039,7 @@ Surface the NLP tooling needed before a GNN ever trains
 </div>
 
 ---
+
 layout: center
 class: text-center
 ---
@@ -1230,6 +1107,7 @@ graph LR
 </v-clicks>
 
 ---
+
 layout: two-cols
 ---
 
@@ -1264,6 +1142,7 @@ $$
 **Sentence:** "BRCA1 mutation increases breast cancer risk"
 
 **Co-occurrence counts:**
+
 - `count(BRCA1, breast cancer) = 42`
 - `count(BRCA1) = 210`
 - `count(breast cancer) = 520`
@@ -1283,34 +1162,15 @@ $$
 
 <!--
 SPEAKER NOTES:
-**What is PMI (Pointwise Mutual Information)?**
-- Measures association strength between two items
-- From information theory: how much knowing one reduces uncertainty about the other
-- Positive PMI = co-occur more than expected by chance
-- Zero PMI = independent (random co-occurrence)
-- Negative PMI = avoid each other (anti-correlated)
+**PMI:** Measures association strength. Positive = co-occur more than chance. Formula normalizes by individual frequencies.
 
-**Why not just use raw co-occurrence counts?**
-- Common words will always have high counts
-- Example: "the patient" appears 10,000 times - doesn't mean "the" and "patient" are meaningfully related
-- PMI normalizes by individual frequencies: p(i) and p(j)
+**Why PMI > raw counts:** Common words get high counts but aren't meaningful. "the patient" appears often but words aren't related.
 
-**Breaking down the formula:**
-- p(i, j) = probability both appear together = 42/10,000
-- p(i) = probability of "BRCA1" = 210/10,000  
-- p(j) = probability of "breast cancer" = 520/10,000
-- If independent: expected co-occurrence = 210/10,000 × 520/10,000 × 10,000 = 10.92
-- Actual = 42, which is 3.85× more than expected
-- log(3.85) ≈ 1.35 (I simplified numbers for slide, real calculation gives ~3.1)
+**Breaking down:** If independent: expected = p(i)×p(j). Actual 42 vs expected 10.92 = 3.85× more. log(3.85) ≈ 1.35
 
-**Filtering strategy:**
-- Set threshold (e.g., PMI > 2.0) to keep only strong associations
-- Reduces noise from spurious co-occurrences
+**Filtering:** Set threshold (PMI > 2.0) to keep strong associations only.
 
-**Common question:** "Why log?"
-- Makes very large ratios more interpretable
-- Symmetric: PMI(A,B) = PMI(B,A)
-- Additive property useful for downstream calculations
+**Why log:** Makes large ratios interpretable. Symmetric: PMI(A,B) = PMI(B,A).
 -->
 
 ---
@@ -1412,43 +1272,20 @@ $$
 
 <!--
 SPEAKER NOTES:
-**TF-IDF Intuition:**
-- TF (Term Frequency) = how often word appears in THIS document
-- IDF (Inverse Document Frequency) = how rare the word is ACROSS ALL documents
-- Multiply them: high score = word is common in this doc BUT rare overall
+**TF-IDF Intuition:** TF (Term Frequency) = how often word appears in THIS doc. IDF (Inverse Document Frequency) = rarity across ALL docs. High score = common here BUT rare overall.
 
-**Breaking down the example:**
+**Example breakdown:**
+- **Chemotherapy:** TF=2/120=0.0167, IDF=log(3/3)=0.18. Medium IDF (appears in 2/3 docs). Good oncology marker.
+- **Arrhythmia:** TF=3/110=0.027, IDF=log(3/2)=0.41. HIGH IDF (only 1/3 docs). Perfect cardiology marker.
+- **Biomarkers:** In all 3 docs. IDF=log(3/4)=-0.12. Negative IDF = ubiquitous, not discriminative.
 
-**Chemotherapy:**
-- TF in Doc A: 2/120 = 0.0167 (appears twice)
-- IDF: log(3/(1+2)) = log(1) = 0.18 (appears in 2 out of 3 docs)
-- Medium IDF because it's somewhat common
-- Good oncology marker
+**Why for GNNs:** TF-IDF vectors = initial node features X. Message passing refines based on graph structure. Alternative: BERT embeddings (modern, but TF-IDF interpretable).
 
-**Arrhythmia:**
-- TF in Doc B: 3/110 = 0.027
-- IDF: log(3/(1+1)) = log(1.5) = 0.41 (only in 1 doc)
-- HIGH IDF = very discriminative
-- Perfect cardiology marker
-
-**Biomarkers:**
-- Appears in all 3 docs
-- IDF: log(3/(1+3)) = log(0.75) = -0.12 (NEGATIVE!)
-- Negative IDF = ubiquitous term, not useful for distinguishing
-- Like "patient" or "clinical" - everywhere
-
-**Why this matters for GNNs:**
-- TF-IDF vectors become initial node features X
-- Each medical concept/document gets a feature vector
-- Message passing then refines these based on graph structure
-- Alternative: use BERT embeddings (more modern, but TF-IDF is interpretable)
-
-**Common question:** "Why add 1 in denominator?"
-- Smoothing: prevents division by zero
-- Also prevents infinite IDF for words appearing once
+**Smoothing:** Add 1 in denominator to prevent division by zero and infinite IDF.
 -->
 
 ---
+
 layout: section
 ---
 
@@ -1462,6 +1299,7 @@ Highlight evaluation patterns students can investigate post-lecture
 </div>
 
 ---
+
 layout: center
 class: text-center
 ---
@@ -1791,6 +1629,7 @@ Need interpretability + validation for deployment
 </v-click>
 
 ---
+
 layout: section
 ---
 
@@ -1912,6 +1751,7 @@ High AUROC ≠ Clinical readiness
 </v-click>
 
 ---
+
 layout: center
 class: text-center
 ---
@@ -1993,6 +1833,7 @@ Bring your idea to the lab session!
 </v-click>
 
 ---
+
 layout: center
 class: text-center
 ---
@@ -2095,11 +1936,12 @@ Let's open the floor! 🎤
 </div>
 
 ---
+
 layout: end
 class: text-center
 ---
 
-# Thank You!
+# Thank You
 
 <div class="mt-12">
 
