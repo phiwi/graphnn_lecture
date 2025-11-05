@@ -305,11 +305,12 @@ Visualize the topology you will aggregate over before touching the numbers.
 - How does degree imbalance influence aggregation?
 - Could we sample neighbors (GraphSAGE) to scale to graphs with millions of nodes?
 
-<!-- notes -->
+<!-- note -->
 - Incorporating `W` and nonlinearities lets each neighbor contribution be reweighted and passed through activations, so node A's new embedding becomes a transformed mix rather than a plain average; it also enables deeper stacks to capture higher-order features.
 - Dropping self-loops would remove each node's own signal, which often hurts stability; adding explicit edge weights lets us scale messages by interaction strength or frequency.
 - Degree imbalance can over-amplify hubs and wash out sparse nodes; normalization (`D^-1/2 A D^-1/2`), attention, or degree-aware weighting helps keep updates balanced.
 - GraphSAGE-style neighbor sampling keeps compute tractable on million-node graphs by limiting the fan-out per layer while still approximating global neighborhoods.
+<!-- /note -->
 
 ---
 
