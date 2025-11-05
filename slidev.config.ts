@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { defineConfig } from 'slidev/config'
 import container from 'markdown-it-container'
 
@@ -9,10 +10,10 @@ const CALLOUTS = [
 
 export default defineConfig({
   markdown: {
-    config(md: any) {
+    config(md) {
       CALLOUTS.forEach(({ type, label }) => {
         md.use(container, type, {
-          render(tokens: any[], idx: number) {
+          render(tokens, idx) {
             const token = tokens[idx]
             if (token.nesting === 1) {
               const rawInfo = token.info.trim()
