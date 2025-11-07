@@ -10,6 +10,7 @@ css:
 themeConfig:
   paginationX: r
   paginationY: b
+coverDate: 13.11.2025
 ---
 
 <!-- markdownlint-disable MD033 -->
@@ -90,30 +91,38 @@ SPEAKER NOTES:
 </v-clicks>
 
 ---
-layout: two-cols
----
 
 ## Agenda & Timing
 
-### Part 1 (10 min)
+<div class="grid grid-cols-2 gap-8 mt-8">
+
+<div>
+
+### Part 1 <span class="text-blue-600">(10 min)</span>
 **Why graphs in medicine?**
 
-### Part 2 (30 min)
+### Part 2 <span class="text-blue-600">(30 min)</span>
 **Core GNN mechanics**
 
-### Part 3 (15 min)
+### Part 3 <span class="text-blue-600">(15 min)</span>
 **Interactive calculation**
 
-::right::
+</div>
 
-### Part 4 (10 min)
+<div>
+
+### Part 4 <span class="text-blue-600">(10 min)</span>
 **Building graphs from text**
 
-### Part 5 (15 min)
+### Part 5 <span class="text-blue-600">(15 min)</span>
 **Medical use cases**
 
-### Part 6 (10 min)
+### Part 6 <span class="text-blue-600">(10 min)</span>
 **Wrap-up and Q&A**
+
+</div>
+
+</div>
 
 ---
 layout: section
@@ -150,47 +159,33 @@ layout: two-cols
 
 ## From Tables to Relationships
 
-<div class="grid grid-cols-2 gap-8">
+<div class="grid grid-cols-2 gap-4 text-sm">
 
 <div>
 
-**The tabular assumption**
+**Tabular assumption:** Each patient independent, features isolated, no shared context
 
-- Each patient is **independent**
-- Features are **isolated**
-- No shared context
-
-<v-click>
-
-**The reality**
-
-- Patients **interact** in cohorts
-- Diseases **co-occur**
-- Treatments **cascade**
-
-</v-click>
+**Reality:** Patients interact in cohorts, diseases co-occur, treatments cascade
 
 </div>
 
-<div>
+<div class="text-xs">
 
 ```mermaid
 graph TD
   P1[Patient 1<br/>Diabetes] 
-  P2[Patient 2<br/>Diabetes + HTN]
+  P2[Patient 2<br/>DM+HTN]
   P3[Patient 3<br/>HTN]
   
-  P1 -.similar.-> P2
-  P2 -.similar.-> P3
+  P1 -.-> P2
+  P2 -.-> P3
   
   style P1 fill:#e3f2fd
   style P2 fill:#fff3e0
   style P3 fill:#f3e5f5
 ```
 
-<div class="text-sm opacity-70 mt-4">
-Graphs encode the structure<br>that tabular models discard
-</div>
+Graphs encode structure that tabular models discard
 
 </div>
 
@@ -314,9 +309,11 @@ Sources: Spatial transcriptomics, multiplex imaging
 
 </div>
 
-:::tip{title="Clinical translation"}
-Always pair model scores with **interpretability** (attention weights, Grad-CAM) so clinical reviewers can audit high-stakes predictions. Model performance means nothing without trust.
-:::
+<div class="mt-4 px-3 py-2 bg-yellow-50 border-l-4 border-yellow-400 rounded text-sm">
+
+💡 **Clinical translation:** Always pair model scores with **interpretability** (attention weights, Grad-CAM) so clinical reviewers can audit high-stakes predictions. Model performance means nothing without trust.
+
+</div>
 
 ---
 layout: fact
@@ -368,25 +365,29 @@ Not all neighbors are created equal
 
 <v-click>
 
-<div class="grid grid-cols-2 gap-12 mt-16 text-left">
+<div class="grid grid-cols-2 gap-6 mt-8 text-left">
 
 <div>
 
 ### Traditional GNN
 
+<div style="font-size: 10px; transform: scale(0.7); transform-origin: top left;">
+
 ```mermaid
 graph LR
   A((Patient A)) ---|weight=1| B((Similar))
-  A ---|weight=1| C((Less Similar))
+  A ---|weight=1| C((Less))
   A ---|weight=1| D((Noisy))
   
-  style A fill:#f6d365,stroke:#333,stroke-width:3px
+  style A fill:#f6d365,stroke:#333
   style B fill:#90be6d
   style C fill:#f9c74f
   style D fill:#f94144
 ```
 
-<div class="text-center text-sm mt-4 opacity-70">
+</div>
+
+<div class="text-center text-sm opacity-70">
 Equal weights → noise included
 </div>
 
@@ -396,19 +397,23 @@ Equal weights → noise included
 
 ### Graph Attention Network
 
+<div style="font-size: 10px; transform: scale(0.7); transform-origin: top left;">
+
 ```mermaid
 graph LR
   A((Patient A)) ---|α=0.8| B((Similar))
-  A ---|α=0.15| C((Less Similar))
+  A ---|α=0.15| C((Less))
   A ---|α=0.05| D((Noisy))
   
-  style A fill:#f6d365,stroke:#333,stroke-width:3px
-  style B fill:#90be6d,stroke:#333,stroke-width:3px
+  style A fill:#f6d365,stroke:#333
+  style B fill:#90be6d,stroke:#333
   style C fill:#f9c74f
   style D fill:#f94144,opacity:0.5
 ```
 
-<div class="text-center text-sm mt-4 opacity-70">
+</div>
+
+<div class="text-center text-sm opacity-70">
 <strong>Learned weights</strong> → focus on what matters
 </div>
 
@@ -420,7 +425,7 @@ graph LR
 
 <v-click>
 
-<div class="mt-12 p-6 bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg">
+<div class="mt-6 px-4 py-3 bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg text-sm">
 
 **Key Insight:** Attention mechanisms learn to <span class="text-purple-600 font-bold">dynamically weight</span> each neighbor's contribution based on <span class="text-blue-600 font-bold">relevance</span>, not just connectivity!
 
@@ -673,8 +678,6 @@ layout: two-cols
 
 ## The Math: GNN Layer Update
 
-<div>
-
 ### The Formula
 
 $$
@@ -692,11 +695,7 @@ $$
 
 </v-clicks>
 
-</div>
-
 ::right::
-
-<div>
 
 ### Why normalize $\tilde{A}$?
 
@@ -723,8 +722,6 @@ $$
 Same $W^{(l)}$ for all nodes → **permutation invariance**
 
 </v-click>
-
-</div>
 
 <!--
 SPEAKER NOTES:
@@ -865,46 +862,29 @@ Start with k=25 for layer 1, k=10 for layer 2. Monitor variance across different
 
 ## Beyond Averaging: Attention
 
-<div class="grid grid-cols-2 gap-8">
+<div class="grid grid-cols-2 gap-6 text-sm">
 
 <div>
 
 ### The Problem
 
-Not all neighbors are equally informative
-
-- Some edges carry **stronger signals**
-- Dense graphs have **noisy connections**
-- Heterogeneous data needs **adaptive weighting**
+Not all neighbors equally informative: some edges carry stronger signals, dense graphs have noise
 
 </div>
 
 <div>
 
-### The Solution: GAT
+### Solution: GAT
 
-<v-clicks>
+1. Learn **edge weights** 
+2. **Attention** scores importance
+3. **Explainable** weights
 
-1. Learn **edge weights** during aggregation
-2. **Attention** scores neighbor importance
-3. **Dynamic focus** improves robustness
-4. **Explainable** attention weights
-
-</v-clicks>
+**Example:** Attention upweights matching comorbidities vs weak demographics
 
 </div>
 
 </div>
-
-<v-click>
-
-<div class="mt-8 p-4 bg-purple-50 rounded text-sm">
-
-**Clinical Example:** In a patient similarity graph, attention upweights neighbors with matching comorbidities while downweighting weak demographic similarities.
-
-</div>
-
-</v-click>
 
 <!--
 SPEAKER NOTES:
@@ -1228,69 +1208,45 @@ If asked "What if important neighbor gets missed?":
 -->
 
 ---
+layout: two-cols
+---
 
-## GraphSAGE: Scalable Graph Learning
+## GraphSAGE: Scalable Learning
 
-<div class="grid grid-cols-2 gap-6">
+### Problem
 
-<div class="text-sm">
+Standard GNN: aggregates ALL neighbors → memory explosion
 
-**The Problem**
+### Solution
 
-Standard GNN aggregates ALL neighbors → memory grows with degree → hard to scale
+Sample fixed k neighbors → constant memory
 
-<v-click>
+### Key Benefit
 
-**The Solution: GraphSAGE**
+Inductive learning → predictions on unseen nodes without retraining
 
-Sample fixed k neighbors → constant memory → enables mini-batch training
+::right::
 
-</v-click>
-
-<v-click>
-
-**Key Advantage**
-
-Inductive learning enables predictions on **unseen nodes** without retraining—critical for evolving medical databases
-
-</v-click>
-
-</div>
-
-<div>
-
-<v-click>
-
-<div class="text-xs">
+<div class="text-xs mt-8">
 
 ```mermaid
 graph TD
-  A((Patient A<br/>500 neighbors))
+  A((Patient A))
   
-  A -.sample k=3.-> B1((N1))
-  A -.sample k=3.-> B2((N2))
-  A -.sample k=3.-> B3((N3))
+  A -.k=3.-> B1((N1))
+  A -.k=3.-> B2((N2))
+  A -.k=3.-> B3((N3))
   
-  A -.ignore.-> B4((N4))
-  A -.ignore.-> B5((...497))
+  A -.-> B4((497...))
   
-  style A fill:#f6d365,stroke:#333,stroke-width:3px
-  style B1 fill:#90be6d,stroke:#333,stroke-width:2px
-  style B2 fill:#90be6d,stroke:#333,stroke-width:2px
-  style B3 fill:#90be6d,stroke:#333,stroke-width:2px
+  style A fill:#f6d365,stroke:#333
+  style B1 fill:#90be6d,stroke:#333
+  style B2 fill:#90be6d,stroke:#333
+  style B3 fill:#90be6d,stroke:#333
   style B4 fill:#ddd,opacity:0.3
-  style B5 fill:#ddd,opacity:0.3
 ```
 
-<div class="text-center mt-2 opacity-70">
-Sample k=3 instead of all 500
-</div>
-
-</div>
-
-</v-click>
-
-</div>
+Sample 3 of 500 neighbors
 
 </div>
 
@@ -1924,63 +1880,40 @@ SPEAKER NOTES:
 
 ## Literature Snapshot
 
-<div class="grid grid-cols-2 gap-8">
+<div class="grid grid-cols-2 gap-6 text-xs">
 
-<div class="text-xs">
+<div>
 
 **Drug Repurposing (2022)**
-- Scale: 42k nodes, 1.4M edges
-- Task: Link prediction
-- Result: Top-15 ranking
+- 42k nodes, 1.4M edges
+- Top-15 ranking
 - *Comput. Biol. Med.*
 
-**Clinical Risk from EHR (2024)**
-- Scale: 50 studies surveyed
-- Task: Diagnosis, mortality
-- Result: GAT most common (38%)
+**Clinical Risk (2024)**
+- 50 studies surveyed
+- GAT most common (38%)
 - *J. Biomed. Inform.*
 
 **Histopathology (2022)**
-- Scale: Chaoyang, 4 classes
-- Task: Graph classification
-- Result: 81.59% (GIN)
+- Chaoyang, 4 classes
+- 81.59% (GIN)
 - *TIPTEKNO*
 
 </div>
 
 <div>
 
-<v-click>
-
-<div class="space-y-4">
-
-<div class="p-3 bg-blue-50 rounded text-sm">
-
 **Common Pattern**
 
-Graphs capture **relational structure** missed by flat models
-
-</div>
-
-<div class="p-3 bg-green-50 rounded text-sm">
+Graphs capture relational structure
 
 **Why It Matters**
 
-GNNs enable **context-aware** predictions from complex medical data
-
-</div>
-
-<div class="p-3 bg-purple-50 rounded text-sm">
+Context-aware predictions
 
 **The Catch**
 
-Need interpretability + validation for deployment
-
-</div>
-
-</div>
-
-</v-click>
+Need interpretability
 
 </div>
 
@@ -2342,5 +2275,5 @@ Happy to discuss your project ideas!
 </div>
 
 <div class="abs-br m-6 text-sm opacity-50">
-  Graph Neural Networks in Modern Medicine · 2025
+  Graph Neural Networks in Modern Medicine
 </div>
