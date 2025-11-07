@@ -25,7 +25,6 @@ Master's in Medical Informatics · 90 minutes
 </div>
 
 ---
-
 layout: center
 class: text-center
 ---
@@ -35,7 +34,7 @@ class: text-center
 <div class="grid grid-cols-3 gap-4 mt-8">
 <div>
 
-### ✅ You know
+### You know
 
 - Neural networks
 - Backpropagation
@@ -44,7 +43,7 @@ class: text-center
 </div>
 <div>
 
-### 🎯 Today you'll learn
+### Today you'll learn
 
 - **Why** graphs matter
 - **How** GNNs work
@@ -53,7 +52,7 @@ class: text-center
 </div>
 <div>
 
-### 💡 Approach
+### Approach
 
 - Light math
 - Heavy intuition
@@ -76,59 +75,47 @@ SPEAKER NOTES:
 
 <v-clicks>
 
-🎓 **Motivate** why graphs appear naturally in biomedical data
+**Motivate** why graphs appear naturally in biomedical data
 
-🔧 **Explain** message passing, aggregation, and attention mechanisms
+**Explain** message passing, aggregation, and attention mechanisms
 
-✍️ **Practice** a manual forward pass on a toy graph
+**Practice** a manual forward pass on a toy graph
 
-🏗️ **Outline** how to build graphs from unstructured medical text
+**Outline** how to build graphs from unstructured medical text
 
-🏥 **Analyze** three high-impact medical GNN applications
+**Analyze** three high-impact medical GNN applications
 
-🚀 **Sketch** future directions relevant to clinical AI
+**Sketch** future directions relevant to clinical AI
 
 </v-clicks>
 
 ---
-
 layout: two-cols
 ---
 
 ## Agenda & Timing
 
 ### Part 1 (10 min)
-
-🧬 **Why graphs in medicine?**
+**Why graphs in medicine?**
 
 ### Part 2 (30 min)
-
-⚙️ **Core GNN mechanics**
+**Core GNN mechanics**
 
 ### Part 3 (15 min)
-
-🧮 **Interactive calculation**
+**Interactive calculation**
 
 ::right::
 
-<div class="mt-16">
-
 ### Part 4 (10 min)
-
-📝 **Building graphs from text**
+**Building graphs from text**
 
 ### Part 5 (15 min)
-
-🏥 **Medical use cases**
+**Medical use cases**
 
 ### Part 6 (10 min)
-
-💬 **Wrap-up and Q&A**
-
-</div>
+**Wrap-up and Q&A**
 
 ---
-
 layout: section
 ---
 
@@ -158,21 +145,24 @@ Because medicine is fundamentally <span class="text-red-500 font-bold">relationa
 </v-clicks>
 
 ---
-
 layout: two-cols
 ---
 
 ## From Tables to Relationships
 
-### The tabular assumption
+<div class="grid grid-cols-2 gap-8">
+
+<div>
+
+**The tabular assumption**
 
 - Each patient is **independent**
 - Features are **isolated**
 - No shared context
 
-### The reality
-
 <v-click>
+
+**The reality**
 
 - Patients **interact** in cohorts
 - Diseases **co-occur**
@@ -180,9 +170,9 @@ layout: two-cols
 
 </v-click>
 
-::right::
+</div>
 
-<div class="ml-8 mt-8">
+<div>
 
 ```mermaid
 graph TD
@@ -200,6 +190,8 @@ graph TD
 
 <div class="text-sm opacity-70 mt-4">
 Graphs encode the structure<br>that tabular models discard
+</div>
+
 </div>
 
 </div>
@@ -222,7 +214,7 @@ SPEAKER NOTES:
 
 <div>
 
-### 🧬 Biology & Chemistry
+### Biology & Chemistry
 
 - **Protein-protein** interaction networks
 - **Gene regulatory** networks  
@@ -236,7 +228,7 @@ Sources: STRING, ChEMBL, PubChem
 
 <div>
 
-### 🏥 Clinical Cohorts
+### Clinical Cohorts
 
 - **Patient similarity** graphs from diagnoses, labs, demographics
 - **Care pathways** capturing temporal encounters
@@ -250,7 +242,7 @@ Sources: MIMIC-III, UK Biobank, EHR systems
 
 <div>
 
-### 📚 Knowledge Synthesis
+### Knowledge Synthesis
 
 - **Literature-derived** knowledge graphs
 - **Disease-symptom-drug** relationships
@@ -264,7 +256,7 @@ Sources: PubMed, UMLS, DrugBank
 
 <div>
 
-### 🔬 Spatial Biology
+### Spatial Biology
 
 - **Tissue microenvironment** graphs
 - **Cell-cell interaction** networks
@@ -286,7 +278,7 @@ Sources: Spatial transcriptomics, multiplex imaging
 
 <div class="border-2 border-blue-400 rounded p-4">
 
-### 🎯 Node Classification
+### Node Classification
 
 **Question:** Is this entity associated with an outcome?
 
@@ -298,7 +290,7 @@ Sources: Spatial transcriptomics, multiplex imaging
 
 <div class="border-2 border-green-400 rounded p-4">
 
-### 🔗 Link Prediction
+### Link Prediction
 
 **Question:** Will these entities interact?
 
@@ -310,7 +302,7 @@ Sources: Spatial transcriptomics, multiplex imaging
 
 <div class="border-2 border-purple-400 rounded p-4">
 
-### 📊 Graph Classification
+### Graph Classification
 
 **Question:** What class is this entire structure?
 
@@ -327,7 +319,6 @@ Always pair model scores with **interpretability** (attention weights, Grad-CAM)
 :::
 
 ---
-
 layout: fact
 ---
 
@@ -337,10 +328,10 @@ layout: fact
 
 <v-clicks>
 
-- 🏥 **5,000** oncology patients  
-- 📊 Features: diagnoses, labs, genomics panels
-- 🔗 Edges: cosine similarity > 0.8
-- 🎯 **Predict:** 12-month survival (node classification)
+- **5,000** oncology patients  
+- Features: diagnoses, labs, genomics panels
+- Edges: cosine similarity > 0.8
+- **Predict:** 12-month survival (node classification)
 
 </v-clicks>
 
@@ -348,7 +339,7 @@ layout: fact
 
 <div class="mt-8 p-4 bg-blue-50 rounded">
 
-**💡 Insight:** Patient communities align with staging + comorbid burden → guides trial stratification
+**Key Insight:** Patient communities align with staging + comorbid burden → guides trial stratification
 
 </div>
 
@@ -365,7 +356,109 @@ SPEAKER NOTES:
 -->
 
 ---
+layout: center
+class: text-center
+---
 
+# 🎯 Preview: The Attention Advantage
+
+<div class="text-2xl my-12 opacity-80">
+Not all neighbors are created equal
+</div>
+
+<v-click>
+
+<div class="grid grid-cols-2 gap-12 mt-16 text-left">
+
+<div>
+
+### Traditional GNN
+
+```mermaid
+graph LR
+  A((Patient A)) ---|weight=1| B((Similar))
+  A ---|weight=1| C((Less Similar))
+  A ---|weight=1| D((Noisy))
+  
+  style A fill:#f6d365,stroke:#333,stroke-width:3px
+  style B fill:#90be6d
+  style C fill:#f9c74f
+  style D fill:#f94144
+```
+
+<div class="text-center text-sm mt-4 opacity-70">
+Equal weights → noise included
+</div>
+
+</div>
+
+<div>
+
+### Graph Attention Network
+
+```mermaid
+graph LR
+  A((Patient A)) ---|α=0.8| B((Similar))
+  A ---|α=0.15| C((Less Similar))
+  A ---|α=0.05| D((Noisy))
+  
+  style A fill:#f6d365,stroke:#333,stroke-width:3px
+  style B fill:#90be6d,stroke:#333,stroke-width:3px
+  style C fill:#f9c74f
+  style D fill:#f94144,opacity:0.5
+```
+
+<div class="text-center text-sm mt-4 opacity-70">
+<strong>Learned weights</strong> → focus on what matters
+</div>
+
+</div>
+
+</div>
+
+</v-click>
+
+<v-click>
+
+<div class="mt-12 p-6 bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg">
+
+**Key Insight:** Attention mechanisms learn to <span class="text-purple-600 font-bold">dynamically weight</span> each neighbor's contribution based on <span class="text-blue-600 font-bold">relevance</span>, not just connectivity!
+
+</div>
+
+</v-click>
+
+<!--
+SPEAKER NOTES:
+**The Problem with Traditional GNNs:**
+- Standard message passing treats all neighbors equally (or weights by degree)
+- In medical graphs: not all similar patients are equally informative
+- Example: Patient A connects to 10 similar patients, but 3 have matching rare mutations → those 3 are more informative
+
+**How Attention Helps:**
+- GAT (Graph Attention Network) learns importance scores α_ij for each edge
+- High attention → neighbor strongly influences prediction
+- Low attention → neighbor gets downweighted (like the noisy connection)
+- These weights are learned during training, not fixed
+
+**Medical Example:**
+- Patient A (breast cancer, BRCA1+, 55yo, Stage II)
+- Neighbor B (breast cancer, BRCA1+, 53yo, Stage II): HIGH attention (α=0.8) - very similar
+- Neighbor C (breast cancer, BRCA2+, 60yo, Stage III): MEDIUM attention (α=0.15) - partially similar
+- Neighbor D (ovarian cancer, 45yo): LOW attention (α=0.05) - weak relevance
+
+**Why This Matters:**
+- Better predictions by focusing on truly similar cases
+- Interpretability: can visualize which patients influenced a prediction
+- Robustness: automatically filters noisy connections
+
+**Coming Up:**
+- We'll dive deep into how attention is computed in Part 2
+- You'll see the actual formulas and a visual walkthrough
+- For now, just remember: attention = learned importance weighting
+-->
+
+---
 layout: section
 ---
 
@@ -403,14 +496,13 @@ graph LR
 
 <v-clicks>
 
-- 📐 **Start:** Adjacency `A` and feature matrix `X`
-- 🔄 **Process:** Message passing extends MLPs to relational data
-- 🎯 **Output:** Rich node embeddings that encode neighborhood context
+- **Start:** Adjacency `A` and feature matrix `X`
+- **Process:** Message passing extends MLPs to relational data
+- **Output:** Rich node embeddings that encode neighborhood context
 
 </v-clicks>
 
 ---
-
 layout: two-cols
 ---
 
@@ -438,7 +530,7 @@ Each row = one node's attributes
 
 <v-click>
 
-### ✅ Sanity Check
+### Sanity Check
 
 ```python
 # Confirm dimensions work
@@ -446,7 +538,7 @@ assert A.shape == (N, N)
 assert X.shape == (N, F)
 
 # Matrix multiplication
-AX = A @ X  # ✓ (N,N) @ (N,F) = (N,F)
+AX = A @ X  # (N,N) @ (N,F) = (N,F)
 ```
 
 </v-click>
@@ -479,8 +571,8 @@ For weighted/directed graphs, store edge attributes in separate tensor or use ad
 | **D** | 0 | 0 | 1 | 1 |
 
 <div class="text-sm opacity-70 mt-4">
-✓ Diagonal = self-loops<br>
-✓ Symmetric (undirected)
+Diagonal = self-loops<br>
+Symmetric (undirected)
 </div>
 
 </div>
@@ -514,7 +606,6 @@ This matrix captures all connections
 </div>
 
 ---
-
 layout: center
 class: text-center
 ---
@@ -539,17 +630,17 @@ In GNNs, every node updates itself by aggregating information from its neighbors
 
 <v-clicks depth="2">
 
-1. **📤 Send Messages**
+1. **Send Messages**
    - Each node broadcasts its current feature vector to neighbors
 
-2. **📥 Aggregate**
+2. **Aggregate**
    - Each node collects messages from all neighbors
    - Combine via: sum, mean, max, or attention-weighted
 
-3. **🔄 Transform**
+3. **Transform**
    - Apply learnable weights `W` and activation `σ`
 
-4. **🔁 Repeat**
+4. **Repeat**
    - Stack layers → information flows farther across the graph
 
 </v-clicks>
@@ -577,11 +668,12 @@ Message passing injects **relational inductive bias**: nodes continually refine 
 </div>
 
 ---
-
 layout: two-cols
 ---
 
 ## The Math: GNN Layer Update
+
+<div>
 
 ### The Formula
 
@@ -600,9 +692,11 @@ $$
 
 </v-clicks>
 
+</div>
+
 ::right::
 
-<div class="ml-8 mt-0">
+<div>
 
 ### Why normalize $\tilde{A}$?
 
@@ -681,7 +775,7 @@ SPEAKER NOTES:
 
 **Neighborhood:** Many hops
 
-**Risk:** ⚠️ **Over-smoothing** / **Over-squashing**
+**Risk:** **Over-smoothing** / **Over-squashing**
 
 **Solutions:** Jump knowledge, attention, adaptive depth
 
@@ -713,6 +807,57 @@ SPEAKER NOTES:
 4. Adaptive sampling (GraphSAGE): Sample fixed k neighbors
 5. Edge rewiring: Add shortcuts, remove redundant edges
 
+**GraphSAGE (SAmple and aggreGatE) - Detailed Explanation:**
+
+GraphSAGE solves the scalability problem by sampling a fixed-size neighborhood at each layer instead of aggregating over ALL neighbors. This is crucial for large graphs.
+
+**The Problem it Solves:**
+- Patient similarity graph with 100k nodes
+- Some patients connected to 500+ similar patients
+- Standard GNN: must aggregate 500 messages → memory explosion
+- GraphSAGE: sample only k=25 neighbors → fixed compute per node
+
+**How it Works:**
+1. For each node, sample k neighbors uniformly (e.g., k=25)
+2. Aggregate only from these k sampled neighbors
+3. Different layers can sample different neighbors
+4. At inference: can use full neighborhood or continue sampling
+
+**Sampling Strategy:**
+- **Uniform sampling:** Random k neighbors (simple, works well)
+- **Importance sampling:** Weight by edge features or attention scores
+- **Fixed neighborhood:** Cache samples for consistency across epochs
+
+**Example - Medical Context:**
+```
+Patient A has 300 similar patients in database
+Layer 1: Sample 25 random similar patients → aggregate their features
+Layer 2: For each of those 25, sample 10 of their neighbors → 2nd-hop info
+Total computation: 25 + 25*10 = 275 aggregations (vs 300 + 300*avg_degree)
+```
+
+**Aggregation Functions in GraphSAGE:**
+1. **Mean aggregator:** Average neighbor features (most common)
+2. **LSTM aggregator:** Treat neighbors as sequence (order-sensitive)
+3. **Pooling aggregator:** Max/mean pooling with learned transformation
+4. **GCN aggregator:** Normalized mean (like standard GCN)
+
+**Key Benefits:**
+- **Constant memory:** Independent of node degree
+- **Inductive learning:** Can generalize to unseen nodes (crucial for evolving medical databases)
+- **Minibatch training:** Can train on subgraphs → enables billion-node graphs
+
+**Medical Use Case:**
+Electronic health records keep growing. GraphSAGE trained on Jan 2024 patients can make predictions on new Feb 2024 patients WITHOUT retraining the entire model. Standard GNN would need full retraining.
+
+**Trade-offs:**
+- Pro: Scalable, inductive, fixed memory
+- Con: Variance from sampling (use multiple samples and average)
+- Con: Might miss important neighbors (use importance sampling to mitigate)
+
+**Implementation Tip:**
+Start with k=25 for layer 1, k=10 for layer 2. Monitor variance across different random seeds. If high variance, increase k or use importance sampling.
+
 **Rule of thumb:** Start with 2 layers. Add 3rd for large sparse graphs. Don't exceed 4 without architecture tricks.
 -->
 
@@ -736,14 +881,14 @@ Not all neighbors are equally informative
 
 <div>
 
-### The Solution: Graph Attention Networks (GAT)
+### The Solution: GAT
 
 <v-clicks>
 
-1. **Learn edge weights** during aggregation
-2. **Attention mechanism** scores neighbor importance
+1. Learn **edge weights** during aggregation
+2. **Attention** scores neighbor importance
 3. **Dynamic focus** improves robustness
-4. **Explainable**: attention weights show influential relations
+4. **Explainable** attention weights
 
 </v-clicks>
 
@@ -753,9 +898,9 @@ Not all neighbors are equally informative
 
 <v-click>
 
-<div class="mt-8 p-4 bg-purple-50 rounded">
+<div class="mt-8 p-4 bg-purple-50 rounded text-sm">
 
-**🏥 Clinical Example:** In a patient similarity graph, attention can automatically upweight neighbors with matching comorbidities while downweighting weak demographic similarities.
+**Clinical Example:** In a patient similarity graph, attention upweights neighbors with matching comorbidities while downweighting weak demographic similarities.
 
 </div>
 
@@ -782,7 +927,6 @@ SPEAKER NOTES:
 -->
 
 ---
-
 layout: section
 ---
 
@@ -796,12 +940,11 @@ Surface common implementation gotchas before touching code
 </div>
 
 ---
-
 layout: center
 class: text-center
 ---
 
-# 🧮 Let's Calculate Together
+# Let's Calculate Together
 
 <div class="text-2xl my-8 opacity-70">
 Manual message passing on a 4-node graph
@@ -816,7 +959,6 @@ Build intuition before we abstract to tensors
 </v-click>
 
 ---
-
 layout: two-cols
 ---
 
@@ -849,7 +991,7 @@ layout: two-cols
 
 <v-click>
 
-### 🎯 Goal
+### Goal
 
 Calculate updated features for **Node A** using simple averaging (no weights, no activation)
 
@@ -857,7 +999,7 @@ Calculate updated features for **Node A** using simple averaging (no weights, no
 
 <v-click>
 
-### 🏥 Medical Analogy
+### Medical Analogy
 
 Think of each dimension as:
 
@@ -906,9 +1048,9 @@ SPEAKER NOTES:
 
 <v-clicks>
 
-- ✓ **Symmetric** (undirected)
-- ✓ **Diagonal = 1** (self-loops)
-- ✓ **Node A connects to:** A, B, C
+- **Symmetric** (undirected)
+- **Diagonal = 1** (self-loops)
+- **Node A connects to:** A, B, C
 
 </v-clicks>
 
@@ -956,7 +1098,6 @@ SPEAKER NOTES:
 -->
 
 ---
-
 layout: center
 ---
 
@@ -986,7 +1127,7 @@ layout: center
 
 <div class="mt-8 p-4 bg-green-50 rounded text-center">
 
-**🎉 Node A's new embedding: `[3, 4]`**
+**Node A's new embedding: `[3, 4]`**
 
 Node A has moved toward its neighborhood community!
 
@@ -1000,7 +1141,7 @@ Node A has moved toward its neighborhood community!
 
 <v-clicks depth="2">
 
-### 🤔 Discussion Questions
+### Discussion Questions
 
 1. **What if we added weights `W` and activation `σ`?**
    - Each neighbor's contribution gets transformed
@@ -1024,8 +1165,182 @@ Node A has moved toward its neighborhood community!
 
 </v-clicks>
 
+<!--
+SPEAKER NOTES FOR SCALABILITY QUESTION:
+
+**Why Scalability Matters in Medical AI:**
+- UK Biobank: 500k participants
+- MIMIC-IV: 300k+ ICU stays
+- Genomics databases: millions of protein interactions
+- Standard GNN: O(N × avg_degree × F) memory per layer → explodes quickly
+
+**GraphSAGE Scalability Deep Dive:**
+
+**The Core Innovation:**
+Instead of h_i^(l+1) = σ(Σ_{j∈N(i)} W h_j^(l)) aggregating over ALL neighbors,
+GraphSAGE uses: h_i^(l+1) = σ(W · AGGREGATE({h_j^(l) : j ∈ Sample(N(i), k)}))
+
+**Practical Example - Patient Graph:**
+- 100,000 patients in database
+- Average degree: 50 similar patients per patient
+- 2-layer GNN:
+  - Standard GNN: Each patient aggregates 50 + 50*50 = 2,550 messages
+  - GraphSAGE (k=25, k=10): Each patient aggregates 25 + 25*10 = 275 messages
+  - **Speedup: 9.3x** with minimal accuracy loss
+
+**Inductive Learning (Game-Changer for Medical AI):**
+Traditional GNN: Transductive (needs to see all nodes during training)
+- Problem: New patient arrives → must retrain entire model
+- Cost: Expensive, slow, impractical for real-time clinical use
+
+GraphSAGE: Inductive (learns aggregation function, not node embeddings)
+- Solution: New patient arrives → apply learned aggregation to their neighbors
+- Benefit: Deploy once, use forever (until concept drift)
+- Example: Train on 2023 patients, deploy for 2024 patients without retraining
+
+**Mini-batch Training:**
+GraphSAGE enables training on subgraphs:
+1. Sample batch of target nodes (e.g., 512 patients)
+2. Sample their k-hop neighborhoods
+3. Compute loss only on batch
+4. Update weights
+
+This is impossible with standard GNN (needs full graph in memory).
+
+**When to Use GraphSAGE:**
+✓ Graph has >10k nodes
+✓ High-degree nodes (avg degree >20)
+✓ New nodes arrive frequently (evolving medical databases)
+✓ Need mini-batch training for memory constraints
+✗ Small static graphs (<5k nodes) - standard GNN is fine
+✗ All nodes known at training time AND graph fits in memory
+
+**Question Deflection Tips:**
+If asked "How do you choose k?": 
+- Start with k=25 for layer 1, k=10 for layer 2
+- Validate by comparing to full-neighborhood baseline on small subset
+- If variance is high across runs, increase k or average multiple samples
+
+If asked "What if important neighbor gets missed?":
+- Use importance sampling (weight by edge features or prior attention scores)
+- Increase k for critical nodes (e.g., ICU patients vs outpatients)
+- Multiple forward passes with different samples, then average predictions
+-->
+
 ---
 
+## GraphSAGE: Scalable Graph Learning
+
+<div class="grid grid-cols-2 gap-6">
+
+<div class="text-sm">
+
+**The Problem**
+
+Standard GNN aggregates ALL neighbors → memory grows with degree → hard to scale
+
+<v-click>
+
+**The Solution: GraphSAGE**
+
+Sample fixed k neighbors → constant memory → enables mini-batch training
+
+</v-click>
+
+<v-click>
+
+**Key Advantage**
+
+Inductive learning enables predictions on **unseen nodes** without retraining—critical for evolving medical databases
+
+</v-click>
+
+</div>
+
+<div>
+
+<v-click>
+
+<div class="text-xs">
+
+```mermaid
+graph TD
+  A((Patient A<br/>500 neighbors))
+  
+  A -.sample k=3.-> B1((N1))
+  A -.sample k=3.-> B2((N2))
+  A -.sample k=3.-> B3((N3))
+  
+  A -.ignore.-> B4((N4))
+  A -.ignore.-> B5((...497))
+  
+  style A fill:#f6d365,stroke:#333,stroke-width:3px
+  style B1 fill:#90be6d,stroke:#333,stroke-width:2px
+  style B2 fill:#90be6d,stroke:#333,stroke-width:2px
+  style B3 fill:#90be6d,stroke:#333,stroke-width:2px
+  style B4 fill:#ddd,opacity:0.3
+  style B5 fill:#ddd,opacity:0.3
+```
+
+<div class="text-center mt-2 opacity-70">
+Sample k=3 instead of all 500
+</div>
+
+</div>
+
+</v-click>
+
+</div>
+
+</div>
+
+<!--
+SPEAKER NOTES:
+
+**Visual Explanation:**
+The diagram shows Patient A connected to 500 similar patients. Standard GNN would aggregate all 500, but GraphSAGE randomly samples only k=3 (or k=25 in practice). The grayed-out nodes are ignored in this forward pass.
+
+**Live Demo Idea:**
+"Imagine you're building a patient risk model. Today you have 100k patients. Tomorrow, 50 new patients are admitted. With standard GNN, you'd need to retrain the entire model—expensive and slow. With GraphSAGE, you simply run inference on the new patients using the already-trained aggregation function. This is called INDUCTIVE learning."
+
+**Aggregation Options:**
+1. **Mean:** h_A = mean([h_N1, h_N2, h_N3]) - most common
+2. **Max pooling:** h_A = max([h_N1, h_N2, h_N3]) - captures outliers
+3. **LSTM:** Treats neighbors as sequence (requires ordering)
+
+**Sampling Strategies:**
+- **Uniform:** Each neighbor has equal probability (simple, robust)
+- **Weighted:** Sample proportional to edge weights (e.g., similarity scores)
+- **Importance:** Use attention scores from previous epoch
+- **Layer-dependent:** k=25 for layer 1, k=10 for layer 2 (exponential receptive field)
+
+**Common Student Questions:**
+
+Q: "Doesn't sampling lose information?"
+A: "Yes, but it's a worthwhile trade-off. In practice, with k=25, you capture ~95% of the information for most graphs. And you can run multiple samples and average predictions to reduce variance."
+
+Q: "How do you choose k?"
+A: "Start with k=25 for layer 1. Validate on a small subset using full neighborhood as baseline. If validation accuracy is within 1-2% of full model, k is sufficient. Common values: k∈{10,25,50}."
+
+Q: "What about mini-batch training?"
+A: "GraphSAGE enables it! Sample a batch of target nodes, then sample their k-hop neighborhoods. Compute loss only on the batch. This lets you train on graphs with billions of nodes using a single GPU."
+
+Q: "Inductive vs transductive—what's the difference?"
+A: "Transductive: Model learns embeddings for specific nodes seen during training. New node arrives → can't make prediction without retraining. Inductive: Model learns the aggregation FUNCTION. New node arrives → apply function to its neighbors → get embedding → make prediction. No retraining needed."
+
+**Medical Context Example:**
+"Consider the UK Biobank with 500k participants. Each person might be similar to 100+ others based on genomics, demographics, and health history. A 2-layer GNN would need to aggregate 100 + 100×100 = 10,100 neighbors per person. With GraphSAGE (k=25, k=10), you aggregate only 275 neighbors—a 37× reduction in computation—with minimal accuracy loss."
+
+**When NOT to Use GraphSAGE:**
+- Small graphs (<10k nodes) that fit entirely in GPU memory
+- Static graphs where no new nodes arrive (transductive setting is fine)
+- When you need exact aggregations (e.g., counting tasks)
+
+**Implementation:**
+PyTorch Geometric has built-in `SAGEConv` layer. Just specify in_channels, out_channels, and use `NeighborSampler` for mini-batch training.
+-->
+
+---
 layout: section
 ---
 
@@ -1039,7 +1354,6 @@ Surface the NLP tooling needed before a GNN ever trains
 </div>
 
 ---
-
 layout: center
 class: text-center
 ---
@@ -1060,12 +1374,12 @@ Clinical notes · Research papers · Pathology reports
 
 <v-click>
 
-<div class="text-3xl mt-12">
-📝 → 🕸️ → 🤖
+<div class="text-3xl mt-12 font-mono">
+Text → Graph → GNN
 </div>
 
 <div class="text-lg opacity-60 mt-4">
-Text → Graph → GNN
+Extract structure from unstructured data
 </div>
 
 </v-click>
@@ -1078,12 +1392,12 @@ Text → Graph → GNN
 
 ```mermaid
 graph LR
-  A[📄 Raw Text] --> B[🏷️ Entity Extraction]
-  B --> C[🔗 Canonicalization]
-  C --> D[⚖️ Edge Scoring]
-  D --> E[🎨 Feature Init]
-  E --> F[✅ Quality Check]
-  F --> G[🕸️ Final Graph]
+  A[Raw Text] --> B[Entity Extraction]
+  B --> C[Canonicalization]
+  C --> D[Edge Scoring]
+  D --> E[Feature Init]
+  E --> F[Quality Check]
+  F --> G[Final Graph]
   
   style A fill:#e3f2fd
   style B fill:#f3e5f5
@@ -1098,16 +1412,15 @@ graph LR
 
 <v-clicks>
 
-1. **🏷️ Entity extraction** – NER tags diseases, genes, drugs (SciSpaCy, PubMedBERT)
-2. **🔗 Canonicalization** – Map synonyms to ontologies (UMLS, HGNC) → merge duplicates
-3. **⚖️ Edge scoring** – PMI, cosine similarity, co-treatment statistics
-4. **🎨 Feature initialization** – TF-IDF, embeddings, or lab value summaries
-5. **✅ Quality checks** – Sparsity, degree distribution, clinician sanity review
+1. **Entity extraction** – NER tags diseases, genes, drugs (SciSpaCy, PubMedBERT)
+2. **Canonicalization** – Map synonyms to ontologies (UMLS, HGNC) → merge duplicates
+3. **Edge scoring** – PMI, cosine similarity, co-treatment statistics
+4. **Feature initialization** – TF-IDF, embeddings, or lab value summaries
+5. **Quality checks** – Sparsity, degree distribution, clinician sanity review
 
 </v-clicks>
 
 ---
-
 layout: two-cols
 ---
 
@@ -1285,7 +1598,6 @@ SPEAKER NOTES:
 -->
 
 ---
-
 layout: section
 ---
 
@@ -1299,7 +1611,6 @@ Highlight evaluation patterns students can investigate post-lecture
 </div>
 
 ---
-
 layout: center
 class: text-center
 ---
@@ -1310,7 +1621,7 @@ class: text-center
 
 <div class="p-4 border-2 border-blue-400 rounded">
 
-### 💊 Drug Discovery
+### Drug Discovery
 
 Link prediction for repurposing
 
@@ -1318,7 +1629,7 @@ Link prediction for repurposing
 
 <div class="p-4 border-2 border-green-400 rounded">
 
-### 🏥 Patient Risk
+### Patient Risk
 
 Node classification for outcomes
 
@@ -1326,7 +1637,7 @@ Node classification for outcomes
 
 <div class="p-4 border-2 border-purple-400 rounded">
 
-### 🔬 Pathology
+### Pathology
 
 Graph classification for tissue
 
@@ -1360,10 +1671,11 @@ Common thread: Graphs encode **multi-entity interactions** missed by flat models
 
 <v-clicks>
 
-- **Graph:** Drugs, proteins, diseases (42k nodes, 1.3M edges)
-- **Sources:** DrugBank, CTD, literature mining
+- **Graph:** Drugs, diseases, genes, anatomies (42k nodes, 1.4M edges)
+- **Sources:** DrugBank, Hetionet, GNBR databases
 - **Task:** Link prediction for drug-disease pairs
-- **Model:** GDRnet (heterogeneous GNN)
+- **Model:** GDRnet (SIGN-based encoder + decoder)
+- **Training:** 6k known treatments + 200k negative samples → learn to score all possible drug-disease pairs
 
 </v-clicks>
 
@@ -1373,22 +1685,22 @@ Common thread: Graphs encode **multi-entity interactions** missed by flat models
 
 ```mermaid
 graph LR
-  DrugA((Remdesivir)) -- targets --> Prot1((RdRp))
-  Prot1 -- associated --> Dis1((COVID-19))
-  DrugB((Favipiravir)) -- ? --> Prot1
+  DrugA((Dexamethasone)) -- targets --> Gene1((NR3C2))
+  Gene1 -- associated --> Dis1((COVID-19))
+  DrugB((Sirolimus)) -- ? --> Gene1
   DrugB -. predicted .-> Dis1
-  DrugC((Metformin)) -. predicted .-> Dis2((Alzheimer's))
+  DrugC((Metformin)) -. predicted .-> Dis2((Diabetes))
   style DrugA fill:#90be6d,stroke:#333,stroke-width:2px
   style DrugB fill:#f9c74f,stroke:#333,stroke-width:2px
   style DrugC fill:#f94144,stroke:#333,stroke-width:2px
-  style Prot1 fill:#577590,stroke:#333,stroke-width:2px
+  style Gene1 fill:#577590,stroke:#333,stroke-width:2px
   style Dis1 fill:#f94144,stroke:#333,stroke-width:2px
   style Dis2 fill:#f3722c,stroke:#333,stroke-width:2px
 ```
 
 <v-click>
 
-**Impact:** 78% of approved therapies ranked **top-15** by the model *(Scientific Reports, 2022)*
+**Impact:** For majority of diseases, actual treatment ranked **top-15** *(Comput. Biol. Med., 2022)*
 
 </v-click>
 
@@ -1398,48 +1710,22 @@ graph LR
 
 <!--
 SPEAKER NOTES:
-**Why drug repurposing matters:**
-- Traditional drug development: 10-15 years, $2.6 billion cost
-- Repurposing: use existing approved drugs for NEW indications
-- Safety already proven → faster to market (2-3 years)
-- Example: Viagra was developed for angina, repurposed for erectile dysfunction
+**Graph structure:** Heterogeneous graph with 4 node types (drugs, diseases, genes, anatomies) and 1.4M edges from DrugBank, Hetionet, GNBR. Captures direct relationships (drug-targets-gene) and indirect paths (drug→gene→disease).
 
-**The graph structure:**
-- Heterogeneous graph = multiple node types (drugs, proteins, diseases, even anatomical locations)
-- Different edge types: drug-targets-protein, protein-associated-disease, drug-treats-disease
-- Challenge: different node types have different feature spaces
+**GDRnet model:** Encoder-decoder architecture. SIGN encoder pre-computes neighborhood aggregations (faster than sequential GNNs). Decoder scores drug-disease pairs.
 
-**GDRnet (Graph-based Drug Repurposing network):**
-- Uses attention mechanism to handle heterogeneous edges
-- Message passing respects node/edge types
-- Output: probability score for every possible drug-disease pair
+**Training:** Binary classification on 6k known treatments + 200k negative samples. Model learns embeddings that capture multi-hop relationships through genes and anatomies.
 
-**Link prediction task:**
-- Training: hide some known drug-disease edges
-- Model learns to predict missing edges
-- Inference: rank ALL possible drug-disease pairs
-- Top-ranked unknown pairs = repurposing candidates
+**Results:** AUROC 0.855. For most test diseases, actual treatment ranked in top-15 out of 8,070 drugs. Ablation: genes crucial (AUROC 0.61→0.845), anatomies help (→0.855).
 
-**The COVID-19 example:**
-- Remdesivir: known to target RdRp (RNA-dependent RNA polymerase)
-- RdRp: known to be essential for COVID-19 replication  
-- Model predicts: Favipiravir (another antiviral) might also work
-- This WAS validated in clinical trials!
+**COVID-19 application:** Predicted Dexamethasone, Sirolimus, Ivermectin—many validated in clinical trials.
 
-**Metformin-Alzheimer's:**
-- Metformin: diabetes drug
-- Graph reveals: targets metabolic pathways also disrupted in Alzheimer's
-- Currently in Phase 2/3 trials for cognitive decline
-
-**Why 78% top-15 is impressive:**
-- 42k nodes → millions of possible drug-disease pairs
-- Getting known therapy in top 15 = hitting needle in haystack
-- Practical use: wet lab can test top 10-20 predictions instead of random screening
+**Why it works:** Indirect paths matter. Metformin→metabolic genes→Alzheimer's pathways. Graph captures these connections that isolated drug-disease pairs miss.
 -->
 
 ---
 
-## Use Case 2: Patient Outcome Prediction
+## Use Case 2: Clinical Risk Prediction from EHRs
 
 <div class="grid grid-cols-2 gap-8">
 
@@ -1447,17 +1733,17 @@ SPEAKER NOTES:
 
 ### The Challenge
 
-How to predict mortality using **complex, multi-modal** patient data?
+How to leverage **complex, heterogeneous** EHR data for clinical predictions?
 
-### The Approach
+### GNN Approaches
 
 <v-clicks>
 
-- **Graph:** Patient similarity network
-- **Nodes:** 90k patients from EHR
-- **Features:** Diagnoses, procedures, labs, demographics
-- **Edges:** Similarity > threshold
-- **Task:** Node classification (mortality risk)
+- **Graph types:** Patient similarity, medical knowledge graphs, temporal event graphs
+- **Most common:** Graph Attention Networks (GAT)
+- **Popular dataset:** MIMIC-III (critical care data)
+- **Main task:** Diagnosis prediction (72% of studies)
+- **Tasks:** Also mortality, readmission, treatment response
 
 </v-clicks>
 
@@ -1467,13 +1753,14 @@ How to predict mortality using **complex, multi-modal** patient data?
 
 <v-click>
 
-### The Architecture
+### Graph Construction Examples
+
+<div class="text-sm">
 
 ```mermaid
 graph TD
   P1[Patient 1<br/>CHF, DM] -.similar.-> P2[Patient 2<br/>CHF, DM, CKD]
   P2 -.similar.-> P3[Patient 3<br/>DM, CKD]
-  P4[Patient 4<br/>HTN] -.similar.-> P5[Patient 5<br/>HTN, CAD]
   
   P2 --> Risk2[High Risk]
   
@@ -1481,17 +1768,24 @@ graph TD
   style Risk2 fill:#f94144
 ```
 
+</div>
+
 </v-click>
 
 <v-click>
 
-### The Results
+### Survey Findings
 
-**AUROC 0.87** vs **0.81** (XGBoost baseline)
+<div class="text-sm">
 
-+6% improvement by leveraging **patient cohort structure**
+- **50 studies** (2009-2023)
+- **GAT** most common (38%)
+- **MIMIC-III** most used (46%)
+- **Diagnosis prediction** main task (72%)
 
-*JMIR Medical Informatics, 2023*
+</div>
+
+*J. Biomed. Inform., 2024*
 
 </v-click>
 
@@ -1503,11 +1797,26 @@ graph TD
 
 <div class="mt-6 p-4 bg-blue-50 rounded">
 
-**💡 Clinical Use:** Early warning dashboards for deterioration within 48 hours
+**Key Advantage:** GNNs capture relationships between medical events, outperforming "bag of features" approaches
 
 </div>
 
 </v-click>
+
+<!--
+SPEAKER NOTES:
+**Survey context:** Oss Boll et al. (2024) reviewed 50 studies on GNNs for EHR-based clinical risk prediction (2009-2023). Shows GNNs are increasingly popular for handling complex, relational EHR data.
+
+**Why GNNs for EHRs:** Traditional ML treats patients as independent "bags of features," ignoring relationships. GNNs model patient similarity, disease co-occurrence, treatment cascades. Handle missing data via graph propagation.
+
+**Graph types:** (1) Patient similarity (edges = clinical similarity), (2) Medical knowledge graphs (diseases-symptoms-drugs), (3) Temporal event graphs (capture sequences), (4) Heterogeneous (multiple node/edge types).
+
+**Key findings:** GAT most popular (38%)—attention learns which patients/events are most relevant. MIMIC-III most used dataset (46%)—40k+ ICU patients. Diagnosis prediction most common task (72%). GNNs improve AUROC by 3-8% over non-graph baselines.
+
+**Challenges:** Interpretability (why this prediction?), temporal dynamics (patients evolve), generalization across hospitals, data heterogeneity (different EHR systems).
+
+**Example:** Patient similarity graph for mortality prediction. Similar patients (shared diagnoses, labs) connected. GNN propagates risk signals: if clinically similar patients have high mortality, flag new patient as high-risk.
+-->
 
 ---
 
@@ -1525,9 +1834,10 @@ Standard CNNs see **pixels**, not **spatial structure**
 
 <v-clicks>
 
-1. **Detect** nuclei/regions with object detector
-2. **Build** spatial graph (proximity edges)
-3. **Classify** entire graph → tissue phenotype
+1. **Segment** image into 75 superpixels (SLIC algorithm)
+2. **Extract** features with ResNet50 per superpixel
+3. **Build** Region Adjacency Graph (RAG)
+4. **Classify** graph → tissue phenotype with GNN
 
 </v-clicks>
 
@@ -1535,9 +1845,14 @@ Standard CNNs see **pixels**, not **spatial structure**
 
 ### Dataset
 
-- 7k colorectal cancer histology tiles
-- Nodes = superpixels with morphological features
-- Edges = spatial adjacency
+<div class="text-sm">
+
+- **Chaoyang Hospital** colorectal cancer
+- **4 classes:** adenocarcinoma, adenoma, serrated, normal
+- **150×150 px** → 75 superpixels each
+- **Edges:** spatial adjacency (Region Adjacency Graph)
+
+</div>
 
 </v-click>
 
@@ -1551,16 +1866,16 @@ Standard CNNs see **pixels**, not **spatial structure**
 
 ```mermaid
 graph LR
-  N1((Nucleus 1<br/>Normal)) --- N2((Nucleus 2<br/>Normal))
-  N2 --- N3((Nucleus 3<br/>Atypical))
-  N3 --- N4((Nucleus 4<br/>Atypical))
-  N4 --- N5((Nucleus 5<br/>Mitotic))
+  SP1((Superpixel 1<br/>Normal)) --- SP2((Superpixel 2<br/>Normal))
+  SP2 --- SP3((Superpixel 3<br/>Adenoma))
+  SP3 --- SP4((Superpixel 4<br/>Adenoma))
+  SP4 --- SP5((Superpixel 5<br/>Cancer))
   
-  style N1 fill:#90be6d
-  style N2 fill:#90be6d
-  style N3 fill:#f9c74f
-  style N4 fill:#f9c74f
-  style N5 fill:#f94144
+  style SP1 fill:#90be6d
+  style SP2 fill:#90be6d
+  style SP3 fill:#f9c74f
+  style SP4 fill:#f9c74f
+  style SP5 fill:#f94144
 ```
 
 </v-click>
@@ -1569,12 +1884,16 @@ graph LR
 
 ### Performance
 
-**92% accuracy** with GNN<br>
-**87% accuracy** with ResNet baseline
+<div class="text-sm">
 
-+5% by capturing **tissue microenvironment**
+- **GIN:** 81.59% (best)
+- **GCN:** 80.91%
+- **GAT:** 74.47%
+- **CNN baselines:** 51-78%
 
-*TIPTEKNO, 2021*
+</div>
+
+*TIPTEKNO, 2022*
 
 </v-click>
 
@@ -1582,41 +1901,76 @@ graph LR
 
 </div>
 
+<!--
+SPEAKER NOTES:
+**Problem:** CNNs see pixels, miss spatial tissue architecture. Cancer diagnosis needs "how are cells arranged?" not just "are cells atypical?"
+
+**Method (Tepe & Bilgin, 2022):** 
+1. SLIC segments 150×150 px image into 75 superpixels (perceptually uniform regions)
+2. ResNet50 extracts 512-dim features per superpixel  
+3. Region Adjacency Graph (RAG): nodes=superpixels, edges=spatial neighbors
+4. GNN classifies whole graph → tissue type (4 classes: adenocarcinoma, adenoma, serrated, normal)
+
+**Dataset:** Chaoyang Hospital, ~6k colorectal patches (4k train, 2k test).
+
+**Results:** GIN 81.59% (best), GCN 80.91%, GAT 74.47%. Outperforms CNN baselines (51-78%). GIN's graph isomorphism expressiveness helps distinguish tissue architectures.
+
+**Why GAT underperforms:** Small graphs (75 nodes) + limited training data (4k) → attention overfits. GIN's structural inductive bias works better here.
+
+**Clinical impact:** Automated colorectal screening, flag serrated polyps (often missed), assist grading adenomas.
+-->
+
 ---
 
 ## Literature Snapshot
 
-<div class="overflow-auto text-sm">
+<div class="grid grid-cols-2 gap-8">
 
-| Year | Domain | Scale | Task | Headline Result | Citation |
-|------|--------|-------|------|-----------------|----------|
-| 2022 | 💊 Drug repurposing | 42k nodes, 1.3M edges | Link prediction | 78% of therapies in top-15 | *Sci. Rep.* |
-| 2023 | 🏥 Patient outcomes | 90k patients | Node classification | AUROC 0.87 vs 0.81 baseline | *JMIR Med. Inform.* |
-| 2021 | 🔬 Histopathology | 7k tissue tiles | Graph classification | 92% accuracy (+5% vs CNN) | *TIPTEKNO* |
+<div class="text-xs">
+
+**Drug Repurposing (2022)**
+- Scale: 42k nodes, 1.4M edges
+- Task: Link prediction
+- Result: Top-15 ranking
+- *Comput. Biol. Med.*
+
+**Clinical Risk from EHR (2024)**
+- Scale: 50 studies surveyed
+- Task: Diagnosis, mortality
+- Result: GAT most common (38%)
+- *J. Biomed. Inform.*
+
+**Histopathology (2022)**
+- Scale: Chaoyang, 4 classes
+- Task: Graph classification
+- Result: 81.59% (GIN)
+- *TIPTEKNO*
 
 </div>
+
+<div>
 
 <v-click>
 
-<div class="mt-8 grid grid-cols-3 gap-4">
+<div class="space-y-4">
 
-<div class="p-4 bg-blue-50 rounded">
+<div class="p-3 bg-blue-50 rounded text-sm">
 
 **Common Pattern**
 
-Graphs outperform flat models by **4-6%**
+Graphs capture **relational structure** missed by flat models
 
 </div>
 
-<div class="p-4 bg-green-50 rounded">
+<div class="p-3 bg-green-50 rounded text-sm">
 
 **Why It Matters**
 
-In clinical AI, 5% AUROC can mean **thousands of lives**
+GNNs enable **context-aware** predictions from complex medical data
 
 </div>
 
-<div class="p-4 bg-purple-50 rounded">
+<div class="p-3 bg-purple-50 rounded text-sm">
 
 **The Catch**
 
@@ -1628,8 +1982,11 @@ Need interpretability + validation for deployment
 
 </v-click>
 
----
+</div>
 
+</div>
+
+---
 layout: section
 ---
 
@@ -1650,7 +2007,7 @@ Frame actionable next steps for students' own projects
 
 <div>
 
-### 🔍 Explainable GNNs
+### Explainable GNNs
 
 <v-clicks>
 
@@ -1665,7 +2022,7 @@ Frame actionable next steps for students' own projects
 
 <div>
 
-### ⏱️ Dynamic Graphs
+### Dynamic Graphs
 
 <v-clicks>
 
@@ -1680,7 +2037,7 @@ Frame actionable next steps for students' own projects
 
 <div>
 
-### 🧬 Multi-Modal Fusion
+### Multi-Modal Fusion
 
 <v-clicks>
 
@@ -1695,7 +2052,7 @@ Frame actionable next steps for students' own projects
 
 <div>
 
-### 🏥 Deployment Challenges
+### Deployment Challenges
 
 <v-clicks>
 
@@ -1744,14 +2101,13 @@ High AUROC ≠ Clinical readiness
 
 <div class="mt-6 p-4 bg-yellow-50 rounded">
 
-⚠️ **Remember:** A model performing well on historical data may fail catastrophically on new populations or hospitals without these safeguards.
+**Remember:** A model performing well on historical data may fail catastrophically on new populations or hospitals without these safeguards.
 
 </div>
 
 </v-click>
 
 ---
-
 layout: center
 class: text-center
 ---
@@ -1761,19 +2117,19 @@ class: text-center
 <v-clicks>
 
 <div class="text-2xl my-4">
-🕸️ **Graph structure** appears everywhere in biomedicine → model it explicitly
+**Graph structure** appears everywhere in biomedicine → model it explicitly
 </div>
 
 <div class="text-2xl my-4">
-🔄 **Message passing** = neighborhood-aware MLPs → watch normalization
+**Message passing** = neighborhood-aware MLPs → watch normalization
 </div>
 
 <div class="text-2xl my-4">
-🏗️ **Graph construction** matters as much as the architecture
+**Graph construction** matters as much as the architecture
 </div>
 
 <div class="text-2xl my-4">
-🏥 **Clinical translation** requires interpretability + validation, not just AUROC
+**Clinical translation** requires interpretability + validation, not just AUROC
 </div>
 
 </v-clicks>
@@ -1786,7 +2142,7 @@ class: text-center
 
 <div>
 
-### 📚 Before Lab Session
+### Before Lab Session
 
 <v-clicks>
 
@@ -1800,7 +2156,7 @@ class: text-center
 
 <div>
 
-### 💻 Hands-On Preparation
+### Hands-On Preparation
 
 <v-clicks>
 
@@ -1833,7 +2189,6 @@ Bring your idea to the lab session!
 </v-click>
 
 ---
-
 layout: center
 class: text-center
 ---
@@ -1844,7 +2199,7 @@ class: text-center
 
 <div class="p-4 border-2 border-blue-400 rounded">
 
-### 💭 Question 1
+### Question 1
 
 What datasets in your projects have latent graph structure?
 
@@ -1852,7 +2207,7 @@ What datasets in your projects have latent graph structure?
 
 <div class="p-4 border-2 border-green-400 rounded">
 
-### ⚙️ Question 2
+### Question 2
 
 Where do you foresee the biggest implementation friction?
 
@@ -1860,7 +2215,7 @@ Where do you foresee the biggest implementation friction?
 
 <div class="p-4 border-2 border-purple-400 rounded">
 
-### ⚖️ Question 3
+### Question 3
 
 How could we evaluate fairness and bias in medical GNNs?
 
@@ -1871,7 +2226,7 @@ How could we evaluate fairness and bias in medical GNNs?
 <v-click>
 
 <div class="mt-12 text-xl opacity-70">
-Let's open the floor! 🎤
+Let's open the floor!
 </div>
 
 </v-click>
@@ -1888,23 +2243,25 @@ Let's open the floor! 🎤
 
 **Paper:** "A computational approach to drug repurposing using graph neural networks"
 
-**Authors:** N. B. R. K. L. K. et al.
+**Authors:** Siddhant Doshi, Sundeep Prabhakar Chepuri
 
-**Journal:** *Scientific Reports*, 2022
+**Journal:** *Comput. Biol. Med.*, 2022
 
-**Key Finding:** GDRnet ranked 78% of approved therapies in top-15 predictions using a 42k-node heterogeneous biomedical knowledge graph.
+**Key Finding:** GDRnet ranked majority of approved treatments in top-15 predictions using a 42k-node, 1.4M-edge heterogeneous graph. Applied to COVID-19 with promising results.
 
 </div>
 
 <div>
 
-### Use Case 2: Patient Outcomes
+### Use Case 2: Clinical Risk Prediction from EHRs
 
-**Paper:** "Enhancing Healthcare Analytics: A Novel Approach to Predicting Patient Outcomes Using Graph Neural Networks on Electronic Health Records"
+**Paper:** "Graph neural networks for clinical risk prediction based on electronic health records: A survey"
 
-**Journal:** *JMIR Medical Informatics*, 2023
+**Authors:** Heloísa Oss Boll et al.
 
-**Key Finding:** Patient similarity GNN achieved AUROC 0.87 vs 0.81 for XGBoost on 90k-patient mortality prediction.
+**Journal:** *J. Biomed. Inform.*, 2024
+
+**Key Finding:** Survey of 50 studies (2009-2023) found GAT most common architecture (38%), MIMIC-III most used dataset (46%), with diagnosis prediction as primary task (72%).
 
 </div>
 
@@ -1914,11 +2271,11 @@ Let's open the floor! 🎤
 
 **Paper:** "Graph Neural Networks for Colorectal Histopathological Image Classification"
 
-**Authors:** S. Gecer et al.
+**Authors:** Esra Tepe, Gokhan Bilgin
 
-**Conference:** *TIPTEKNO*, 2021
+**Conference:** *TIPTEKNO*, 2022
 
-**Key Finding:** Scene graph GNN achieved 92% accuracy (+5% over ResNet) on colorectal tissue classification by capturing spatial relationships.
+**Key Finding:** Superpixel-based GIN achieved 81.59% accuracy on Chaoyang colorectal dataset (4-class classification) by capturing spatial tissue architecture.
 
 </div>
 
@@ -1936,7 +2293,6 @@ Let's open the floor! 🎤
 </div>
 
 ---
-
 layout: end
 class: text-center
 ---
@@ -1945,13 +2301,13 @@ class: text-center
 
 <div class="mt-12">
 
-## 🎓 Keep Exploring
+## Keep Exploring
 
 <div class="grid grid-cols-3 gap-8 mt-8">
 
 <div>
 
-### 📊 Slides
+### Slides
 
 Clone repo and run:
 
@@ -1963,7 +2319,7 @@ npx slidev slides.md
 
 <div>
 
-### 📧 Contact
+### Contact
 
 [Add your email]
 
@@ -1973,7 +2329,7 @@ Office hours: [Add times]
 
 <div>
 
-### 💬 Questions?
+### Questions?
 
 Catch me after class or via email
 
