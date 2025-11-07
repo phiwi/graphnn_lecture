@@ -1876,48 +1876,6 @@ SPEAKER NOTES:
 **Clinical impact:** Automated colorectal screening, flag serrated polyps (often missed), assist grading adenomas.
 -->
 
----
-
-## Literature Snapshot
-
-<div class="grid grid-cols-2 gap-6 text-xs">
-
-<div>
-
-**Drug Repurposing (2022)**
-- 42k nodes, 1.4M edges
-- Top-15 ranking
-- *Comput. Biol. Med.*
-
-**Clinical Risk (2024)**
-- 50 studies surveyed
-- GAT most common (38%)
-- *J. Biomed. Inform.*
-
-**Histopathology (2022)**
-- Chaoyang, 4 classes
-- 81.59% (GIN)
-- *TIPTEKNO*
-
-</div>
-
-<div>
-
-**Common Pattern**
-
-Graphs capture relational structure
-
-**Why It Matters**
-
-Context-aware predictions
-
-**The Catch**
-
-Need interpretability
-
-</div>
-
-</div>
 
 ---
 layout: section
@@ -2045,87 +2003,6 @@ layout: center
 class: text-center
 ---
 
-# Key Takeaways
-
-<v-clicks>
-
-<div class="text-2xl my-4">
-**Graph structure** appears everywhere in biomedicine → model it explicitly
-</div>
-
-<div class="text-2xl my-4">
-**Message passing** = neighborhood-aware MLPs → watch normalization
-</div>
-
-<div class="text-2xl my-4">
-**Graph construction** matters as much as the architecture
-</div>
-
-<div class="text-2xl my-4">
-**Clinical translation** requires interpretability + validation, not just AUROC
-</div>
-
-</v-clicks>
-
----
-
-## Your Action Items
-
-<div class="grid grid-cols-2 gap-8 mt-8">
-
-<div>
-
-### Before Lab Session
-
-<v-clicks>
-
-1. Read **one paper** per use case (provided in references)
-2. Identify a **graph structure** in your current research
-3. Sketch entities, edges, and features on paper
-
-</v-clicks>
-
-</div>
-
-<div>
-
-### Hands-On Preparation
-
-<v-clicks>
-
-1. Install **PyTorch Geometric** or **DGL**
-2. Complete tutorial: build simple GCN
-3. Download a **small benchmark** (Cora, PubMed)
-
-</v-clicks>
-
-</div>
-
-</div>
-
-<v-click>
-
-<div class="mt-8 p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded">
-
-### 🎯 Challenge Question
-
-**Can you think of a dataset in your research that has latent graph structure?**
-
-- Patient cohorts with shared diagnoses?
-- Proteins with interaction networks?
-- Clinical pathways across hospitals?
-
-Bring your idea to the lab session!
-
-</div>
-
-</v-click>
-
----
-layout: center
-class: text-center
----
-
 # Discussion & Q&A
 
 <div class="grid grid-cols-3 gap-8 mt-12 text-left">
@@ -2236,15 +2113,14 @@ class: text-center
 
 ## Keep Exploring
 
-<div class="grid grid-cols-3 gap-8 mt-8">
+<div class="grid grid-cols-[2fr_1fr] gap-8 mt-8">
 
-<div>
+<div class="text-left">
 
 ### Slides
 
-Clone repo and run:
-
 ```bash
+git clone https://github.com/phiwi/graphnn_lecture
 npx slidev slides.md
 ```
 
@@ -2254,19 +2130,7 @@ npx slidev slides.md
 
 ### Contact
 
-[Add your email]
-
-Office hours: [Add times]
-
-</div>
-
-<div>
-
-### Questions?
-
-Catch me after class or via email
-
-Happy to discuss your project ideas!
+[philipp.wiesenbach@uni-heidelberg.de]
 
 </div>
 
