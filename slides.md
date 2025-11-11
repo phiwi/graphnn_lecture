@@ -1958,45 +1958,6 @@ Frame actionable next steps for students' own projects
 
 </div>
 
----
-
-## Trustworthy AI: Beyond Accuracy
-
-<v-clicks depth="2">
-
-### The Challenge
-
-High AUROC ≠ Clinical readiness
-
-### What's Missing?
-
-1. **Calibration**
-   - Are predicted probabilities reliable?
-   - Temperature scaling, Platt scaling
-
-2. **Uncertainty Quantification**
-   - Bayesian GNNs, Monte Carlo dropout
-   - Flag low-confidence predictions
-
-3. **Counterfactual Testing**
-   - "What if this edge didn't exist?"
-   - Causal reasoning on graphs
-
-4. **Drift Monitoring**
-   - Distribution shift post-deployment
-   - Continuous validation pipelines
-
-</v-clicks>
-
-<v-click>
-
-<div class="mt-6 p-4 bg-yellow-50 rounded">
-
-**Remember:** A model performing well on historical data may fail catastrophically on new populations or hospitals without these safeguards.
-
-</div>
-
-</v-click>
 
 ---
 layout: center
@@ -2040,67 +2001,6 @@ Let's open the floor!
 </div>
 
 </v-click>
-
----
-
-## References
-
-<div class="text-sm grid grid-cols-2 gap-6">
-
-<div>
-
-### Use Case 1: Drug Repurposing
-
-**Paper:** "A computational approach to drug repurposing using graph neural networks"
-
-**Authors:** Siddhant Doshi, Sundeep Prabhakar Chepuri
-
-**Journal:** *Comput. Biol. Med.*, 2022
-
-**Key Finding:** GDRnet ranked majority of approved treatments in top-15 predictions using a 42k-node, 1.4M-edge heterogeneous graph. Applied to COVID-19 with promising results.
-
-</div>
-
-<div>
-
-### Use Case 2: Clinical Risk Prediction from EHRs
-
-**Paper:** "Graph neural networks for clinical risk prediction based on electronic health records: A survey"
-
-**Authors:** Heloísa Oss Boll et al.
-
-**Journal:** *J. Biomed. Inform.*, 2024
-
-**Key Finding:** Survey of 50 studies (2009-2023) found GAT most common architecture (38%), MIMIC-III most used dataset (46%), with diagnosis prediction as primary task (72%).
-
-</div>
-
-<div>
-
-### Use Case 3: Histopathology
-
-**Paper:** "Graph Neural Networks for Colorectal Histopathological Image Classification"
-
-**Authors:** Esra Tepe, Gokhan Bilgin
-
-**Conference:** *TIPTEKNO*, 2022
-
-**Key Finding:** Superpixel-based GIN achieved 81.59% accuracy on Chaoyang colorectal dataset (4-class classification) by capturing spatial tissue architecture.
-
-</div>
-
-<div>
-
-### Additional Resources
-
-- **PyTorch Geometric:** [pytorch-geometric.readthedocs.io](https://pytorch-geometric.readthedocs.io)
-- **DGL:** [dgl.ai](https://dgl.ai)
-- **Graph ML papers:** [paperswithcode.com/task/graph-learning](https://paperswithcode.com/task/graph-learning)
-- **Medical datasets:** MIMIC-III, UK Biobank, DrugBank
-
-</div>
-
-</div>
 
 ---
 layout: end
