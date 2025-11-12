@@ -451,113 +451,6 @@ SPEAKER NOTES:
 -->
 
 ---
-layout: center
-class: text-center
----
-
-## Attention: Not all neighbors are created equal
-
-<v-click>
-
-<div class="grid grid-cols-2 gap-6 mt-4 text-left">
-
-<div>
-
-### Traditional GNN
-
-<div style="font-size: 10px; transform: scale(0.7); transform-origin: top left;">
-
-```mermaid
-graph LR
-  A((Patient A)) ---|weight=1| B((Similar))
-  A ---|weight=1| C((Less))
-  A ---|weight=1| D((Noisy))
-  
-  style A fill:#f6d365,stroke:#333
-  style B fill:#90be6d
-  style C fill:#f9c74f
-  style D fill:#f94144
-```
-
-</div>
-
-<div class="text-center text-sm opacity-70" style="margin-top: -1rem;">
-Equal weights → noise included
-</div>
-
-</div>
-
-<div>
-
-### Graph Attention Network
-
-<div style="font-size: 10px; transform: scale(0.7); transform-origin: top left;">
-
-```mermaid
-graph LR
-  A((Patient A)) ---|α=0.8| B((Similar))
-  A ---|α=0.15| C((Less))
-  A ---|α=0.05| D((Noisy))
-  
-  style A fill:#f6d365,stroke:#333
-  style B fill:#90be6d,stroke:#333
-  style C fill:#f9c74f
-  style D fill:#f94144,opacity:0.5
-```
-
-</div>
-
-<div class="text-center text-sm opacity-70" style="margin-top: -1rem;">
-<strong>Learned weights</strong> → focus on what matters
-</div>
-
-</div>
-
-</div>
-
-</v-click>
-
-<v-click>
-
-<div class="mt-2 px-4 py-3 bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg text-sm">
-
-**Key Insight:** Attention mechanisms learn to <span class="text-purple-600 font-bold">dynamically weight</span> each neighbor's contribution based on <span class="text-blue-600 font-bold">relevance</span>, not just connectivity!
-
-</div>
-
-</v-click>
-
-<!--
-SPEAKER NOTES:
-**The Problem with Traditional GNNs:**
-- Standard message passing treats all neighbors equally (or weights by degree)
-- In medical graphs: not all similar patients are equally informative
-- Example: Patient A connects to 10 similar patients, but 3 have matching rare mutations → those 3 are more informative
-
-**How Attention Helps:**
-- GAT (Graph Attention Network) learns importance scores α_ij for each edge
-- High attention → neighbor strongly influences prediction
-- Low attention → neighbor gets downweighted (like the noisy connection)
-- These weights are learned during training, not fixed
-
-**Medical Example:**
-- Patient A (breast cancer, BRCA1+, 55yo, Stage II)
-- Neighbor B (breast cancer, BRCA1+, 53yo, Stage II): HIGH attention (α=0.8) - very similar
-- Neighbor C (breast cancer, BRCA2+, 60yo, Stage III): MEDIUM attention (α=0.15) - partially similar
-- Neighbor D (ovarian cancer, 45yo): LOW attention (α=0.05) - weak relevance
-
-**Why This Matters:**
-- Better predictions by focusing on truly similar cases
-- Interpretability: can visualize which patients influenced a prediction
-- Robustness: automatically filters noisy connections
-
-**Coming Up:**
-- We'll dive deep into how attention is computed in Part 2
-- You'll see the actual formulas and a visual walkthrough
-- For now, just remember: attention = learned importance weighting
--->
-
----
 layout: section
 ---
 
@@ -1093,6 +986,113 @@ SPEAKER NOTES:
 **Explainability benefit:** Attention weights α_ij ∈ [0,1] are interpretable. Can visualize which similar patients influenced prediction.
 
 **Trade-offs:** More parameters, slower training. But worth it for performance and interpretability.
+-->
+
+---
+layout: center
+class: text-center
+---
+
+## Attention: Not all neighbors are created equal
+
+<v-click>
+
+<div class="grid grid-cols-2 gap-6 mt-4 text-left">
+
+<div>
+
+### Traditional GNN
+
+<div style="font-size: 10px; transform: scale(0.7); transform-origin: top left;">
+
+```mermaid
+graph LR
+  A((Patient A)) ---|weight=1| B((Similar))
+  A ---|weight=1| C((Less))
+  A ---|weight=1| D((Noisy))
+  
+  style A fill:#f6d365,stroke:#333
+  style B fill:#90be6d
+  style C fill:#f9c74f
+  style D fill:#f94144
+```
+
+</div>
+
+<div class="text-center text-sm opacity-70" style="margin-top: -1rem;">
+Equal weights → noise included
+</div>
+
+</div>
+
+<div>
+
+### Graph Attention Network
+
+<div style="font-size: 10px; transform: scale(0.7); transform-origin: top left;">
+
+```mermaid
+graph LR
+  A((Patient A)) ---|α=0.8| B((Similar))
+  A ---|α=0.15| C((Less))
+  A ---|α=0.05| D((Noisy))
+  
+  style A fill:#f6d365,stroke:#333
+  style B fill:#90be6d,stroke:#333
+  style C fill:#f9c74f
+  style D fill:#f94144,opacity:0.5
+```
+
+</div>
+
+<div class="text-center text-sm opacity-70" style="margin-top: -1rem;">
+<strong>Learned weights</strong> → focus on what matters
+</div>
+
+</div>
+
+</div>
+
+</v-click>
+
+<v-click>
+
+<div class="mt-2 px-4 py-3 bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg text-sm">
+
+**Key Insight:** Attention mechanisms learn to <span class="text-purple-600 font-bold">dynamically weight</span> each neighbor's contribution based on <span class="text-blue-600 font-bold">relevance</span>, not just connectivity!
+
+</div>
+
+</v-click>
+
+<!--
+SPEAKER NOTES:
+**The Problem with Traditional GNNs:**
+- Standard message passing treats all neighbors equally (or weights by degree)
+- In medical graphs: not all similar patients are equally informative
+- Example: Patient A connects to 10 similar patients, but 3 have matching rare mutations → those 3 are more informative
+
+**How Attention Helps:**
+- GAT (Graph Attention Network) learns importance scores α_ij for each edge
+- High attention → neighbor strongly influences prediction
+- Low attention → neighbor gets downweighted (like the noisy connection)
+- These weights are learned during training, not fixed
+
+**Medical Example:**
+- Patient A (breast cancer, BRCA1+, 55yo, Stage II)
+- Neighbor B (breast cancer, BRCA1+, 53yo, Stage II): HIGH attention (α=0.8) - very similar
+- Neighbor C (breast cancer, BRCA2+, 60yo, Stage III): MEDIUM attention (α=0.15) - partially similar
+- Neighbor D (ovarian cancer, 45yo): LOW attention (α=0.05) - weak relevance
+
+**Why This Matters:**
+- Better predictions by focusing on truly similar cases
+- Interpretability: can visualize which patients influenced a prediction
+- Robustness: automatically filters noisy connections
+
+**Coming Up:**
+- We'll dive deep into how attention is computed in Part 2
+- You'll see the actual formulas and a visual walkthrough
+- For now, just remember: attention = learned importance weighting
 -->
 
 ---
