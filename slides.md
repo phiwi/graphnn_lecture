@@ -715,12 +715,6 @@ graph LR
 
 </div>
 
-### Connection Patterns
-
-<div class="text-sm opacity-70 mt-2">
-This matrix captures all connections
-</div>
-
 </div>
 
 ---
