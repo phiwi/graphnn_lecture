@@ -1319,31 +1319,49 @@ SPEAKER NOTES:
 
 ## Debrief: What Did We Learn?
 
-<v-clicks depth="2">
+<div class="grid grid-cols-2 gap-8 mt-8">
 
-### Discussion Questions
+<div>
 
-1. **What if we added weights `W` and activation `σ`?**
-   - Each neighbor's contribution gets transformed
-   - Enables learning complex patterns
-   - Deeper stacks capture higher-order features
+<v-clicks>
 
-2. **What if we dropped self-loops?**
-   - Node loses its own signal
-   - Often hurts stability
-   - Can cause over-smoothing faster
+### Design Decisions
 
-3. **How does degree imbalance affect this?**
-   - High-degree nodes (hubs) can dominate
-   - Low-degree nodes get washed out
-   - **Solution:** Normalization (`D^-1/2 A D^-1/2`), attention, or degree-aware weights
+1. **Weights `W` + activation `σ`?**
+   - Transforms neighbor contributions
+   - Enables complex pattern learning
+   - Supports deep architectures
 
-4. **Could we scale to millions of nodes?**
-   - **GraphSAGE:** Sample k neighbors instead of using all
-   - Keeps compute tractable
-   - Still approximates full neighborhood
+2. **Self-loops?**
+   - Preserves node identity
+   - Improves training stability
+   - Prevents over-smoothing
 
 </v-clicks>
+
+</div>
+
+<div>
+
+<v-clicks>
+
+### Practical Considerations
+
+3. **Degree imbalance?**
+   - Hubs can dominate aggregation
+   - Peripheral nodes get washed out
+   - **Solutions:** Normalization, attention, sampling
+
+4. **Scalability to millions?**
+   - **GraphSAGE:** Sample k neighbors (not all)
+   - Maintains tractable computation
+   - Preserves neighborhood approximation
+
+</v-clicks>
+
+</div>
+
+</div>
 
 <!--
 SPEAKER NOTES FOR SCALABILITY QUESTION:
