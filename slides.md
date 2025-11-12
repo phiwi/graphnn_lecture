@@ -2198,45 +2198,6 @@ Frame actionable next steps for students' own projects
 
 </div>
 
----
-
-## Trustworthy AI: Beyond Accuracy
-
-<v-clicks depth="2">
-
-### The Challenge
-
-High AUROC ≠ Clinical readiness
-
-### What's Missing?
-
-1. **Calibration**
-   - Are predicted probabilities reliable?
-   - Temperature scaling, Platt scaling
-
-2. **Uncertainty Quantification**
-   - Bayesian GNNs, Monte Carlo dropout
-   - Flag low-confidence predictions
-
-3. **Counterfactual Testing**
-   - "What if this edge didn't exist?"
-   - Causal reasoning on graphs
-
-4. **Drift Monitoring**
-   - Distribution shift post-deployment
-   - Continuous validation pipelines
-
-</v-clicks>
-
-<v-click>
-
-<div class="mt-6 p-4 bg-yellow-50 rounded">
-
-**Remember:** A model performing well on historical data may fail catastrophically on new populations or hospitals without these safeguards.
-
-</div>
-
-</v-click>
 
 ---
 layout: center
