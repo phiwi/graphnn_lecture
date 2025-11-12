@@ -780,10 +780,12 @@ Message passing injects **relational inductive bias**: nodes continually refine 
 </div>
 
 ---
-layout: two-cols
----
 
 ## The Math: GNN Layer Update
+
+<div class="grid grid-cols-2 gap-8 mt-8">
+
+<div>
 
 ### The Formula
 
@@ -802,11 +804,13 @@ $$
 
 </v-clicks>
 
-::right::
+</div>
 
-### Why normalize $\tilde{A}$?
+<div>
 
 <v-click>
+
+### Why normalize $\tilde{A}$?
 
 $$
 \tilde{A} = D^{-1/2}(A + I)D^{-1/2}
@@ -830,15 +834,29 @@ Same $W^{(l)}$ for all nodes → **permutation invariance**
 
 </v-click>
 
+</div>
+
+</div>
+
 <!--
 SPEAKER NOTES:
-**GNN formula breakdown:**
-- H^(l): N × F matrix of current embeddings. Layer 0: H^(0) = X (raw features)
-- ÃH^(l): Aggregation - sum neighbors' features. Example: node A = sum(A,B,C features)
-- (ÃH^(l))W^(l): Transform via learnable F × F' weights. Same W for all nodes (parameter sharing)
-- σ(...): Activation (ReLU, GELU). Adds non-linearity to prevent collapse to linear transform
-- Normalization Ã = D^(-1/2)(A + I)D^(-1/2) prevents gradient explosion from high-degree nodes
-- Permutation invariance: Graph structure (A) encodes relationships, not node IDs
+
+**Why normalization prevents degree explosion:**
+- Without normalization: High-degree nodes (hubs) aggregate features from many neighbors
+- Their embeddings become much larger in magnitude than low-degree nodes
+- During backprop: Gradients from high-degree nodes dominate the loss
+- Result: Model focuses only on hub nodes, ignores peripheral nodes
+- Normalization Ã = D^(-1/2)(A + I)D^(-1/2) scales by inverse square root of degree
+- Each node's contribution is weighted by 1/√d_i, preventing any single node from dominating
+- Keeps all nodes' gradients on similar scales during training
+
+**Why same W makes permutation invariance:**
+- Graph nodes have no inherent ordering - node IDs are arbitrary labels
+- If different W for each node: Model would learn node-specific patterns based on IDs
+- Same W for all nodes: Only graph structure (A) determines which nodes influence each other
+- Model learns structural patterns: "high-degree nodes behave this way", not "node 5 behaves this way"
+- Permutation invariance: If you relabel nodes (swap IDs), predictions remain the same
+- This is crucial for generalization - model works regardless of how you number the nodes
 -->
 
 ---
