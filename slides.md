@@ -1612,10 +1612,13 @@ graph LR
 </v-clicks>
 
 ---
-layout: two-cols
 ---
 
 ## Method 1: Co-occurrence & PMI
+
+<div class="grid grid-cols-2 gap-8 mt-8">
+
+<div>
 
 ### The Idea
 
@@ -1635,9 +1638,9 @@ $$
 
 </v-click>
 
-::right::
+</div>
 
-<div class="ml-8">
+<div>
 
 <v-click>
 
@@ -1661,6 +1664,8 @@ $$
 **High PMI** → strong semantic link!
 
 </v-click>
+
+</div>
 
 </div>
 
