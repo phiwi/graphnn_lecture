@@ -602,10 +602,12 @@ graph LR
 </v-clicks>
 
 ---
-layout: two-cols
----
 
 ## Representing a Graph
+
+<div class="grid grid-cols-2 gap-8 mt-8">
+
+<div>
 
 ### The Adjacency Matrix `A`
 
@@ -623,9 +625,9 @@ Each row = one node's attributes
 - **F** = feature dimension
 - Examples: gene expression, lab values
 
-::right::
+</div>
 
-<div class="ml-8">
+<div>
 
 <v-click>
 
@@ -639,16 +641,31 @@ assert X.shape == (N, F)
 # Matrix multiplication
 AX = A @ X  # (N,N) @ (N,F) = (N,F)
 ```
-
 </v-click>
 
 <v-click>
 
-:::info{title="Edge features"}
-For weighted/directed graphs, store edge attributes in separate tensor or use adjacency list format.
-:::
+### Example: 4-Node Graph
+
+```python
+# Adjacency matrix (4 nodes: A, B, C, D)
+A = np.array([
+    [1, 1, 1, 0],  # A connects to A, B, C
+    [1, 1, 1, 0],  # B connects to A, B, C
+    [1, 1, 1, 1],  # C connects to A, B, C, D
+    [0, 0, 1, 1]   # D connects to C, D
+])
+
+# Node features (4 nodes, 3 features each)
+X = np.random.randn(4, 3)
+
+# Message passing: aggregate neighbor features
+AX = A @ X  # (4,4) @ (4,3) = (4,3)
+```
 
 </v-click>
+
+</div>
 
 </div>
 
@@ -702,8 +719,6 @@ graph LR
 
 <div class="text-sm opacity-70 mt-2">
 This matrix captures all connections
-</div>
-
 </div>
 
 </div>
