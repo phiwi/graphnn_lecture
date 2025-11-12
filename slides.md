@@ -1267,42 +1267,53 @@ SPEAKER NOTES:
 -->
 
 ---
-layout: center
----
 
 ## Step 2: Aggregate Node A
 
+<div class="grid grid-cols-2 gap-8 mt-8">
+
+<div>
+
 <v-clicks depth="2">
 
-1. **Identify neighbors of A:**
-   - A itself (self-loop)
-   - B (connected)
-   - C (connected)
+### Aggregation Steps
 
-2. **Gather their features:**
-   - A: `[1, 2]`
-   - B: `[3, 4]`
-   - C: `[5, 6]`
-
-3. **Sum:**
-   - `[1, 2] + [3, 4] + [5, 6] = [9, 12]`
-
-4. **Average (divide by 3):**
-   - `[9, 12] / 3 = [3, 4]`
+1. **Neighbors:** A, B, C (with self-loop)
+2. **Features:** A:`[1,2]`, B:`[3,4]`, C:`[5,6]`
+3. **Sum:** `[1,2] + [3,4] + [5,6] = [9,12]`
+4. **Average:** `[9,12] ÷ 3 = [3,4]`
 
 </v-clicks>
 
 <v-click>
 
-<div class="mt-8 p-4 bg-green-50 rounded text-center">
+<div class="mt-4 p-3 bg-green-50 rounded text-center text-sm">
 
-**Node A's new embedding: `[3, 4]`**
-
-Node A has moved toward its neighborhood community!
+**Result: Node A → `[3,4]`**  
+*Moved toward neighborhood center*
 
 </div>
 
 </v-click>
+
+</div>
+
+<div>
+
+<v-clicks>
+
+### Key Insights
+
+1. **Weights `W` + activation `σ`:** Learn complex patterns, enable deep stacking
+2. **Self-loops:** Preserve node identity, prevent over-smoothing  
+3. **Degree imbalance:** Hubs dominate → use normalization or attention
+4. **Scalability:** GraphSAGE samples k neighbors (not all)
+
+</v-clicks>
+
+</div>
+
+</div>
 
 ---
 
