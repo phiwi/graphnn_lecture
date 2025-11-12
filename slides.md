@@ -154,22 +154,43 @@ Because medicine is fundamentally <span class="text-red-500 font-bold">relationa
 </v-clicks>
 
 ---
-layout: two-cols
----
 
 ## From Tables to Relationships
 
-<div class="grid grid-cols-2 gap-4 text-sm">
+<div class="grid grid-cols-2 gap-8 mt-8">
 
 <div>
 
-**Tabular assumption:** Each patient independent, features isolated, no shared context
+### Tabular Assumption
 
-**Reality:** Patients interact in cohorts, diseases co-occur, treatments cascade
+<div class="text-sm opacity-70 mb-4">
+Each patient independent, features isolated, no shared context
+</div>
+
+```mermaid
+graph TD
+  P1[Patient 1<br/>Diabetes<br/>Age: 45<br/>BMI: 28]
+  P2[Patient 2<br/>DM + HTN<br/>Age: 52<br/>BMI: 31]
+  P3[Patient 3<br/>HTN<br/>Age: 48<br/>BMI: 26]
+  
+  style P1 fill:#f8fafc,stroke:#cbd5e1
+  style P2 fill:#f8fafc,stroke:#cbd5e1
+  style P3 fill:#f8fafc,stroke:#cbd5e1
+```
+
+<div class="text-xs opacity-60 mt-2">
+Rows treated as isolated data points
+</div>
 
 </div>
 
-<div class="text-xs">
+<div>
+
+### Reality
+
+<div class="text-sm opacity-70 mb-4">
+Patients interact in cohorts, diseases co-occur, treatments cascade
+</div>
 
 ```mermaid
 graph TD
@@ -185,7 +206,9 @@ graph TD
   style P3 fill:#f3e5f5
 ```
 
+<div class="text-xs opacity-60 mt-2">
 Graphs encode structure that tabular models discard
+</div>
 
 </div>
 
@@ -205,14 +228,14 @@ SPEAKER NOTES:
 
 ## Biomedical Graph Examples
 
-<div class="grid grid-cols-2 gap-8 mt-8">
+<div class="grid grid-cols-2 gap-8 mt-8 biomedical-grid">
 
 <div>
 
 ### Biology & Chemistry
 
 - **Protein-protein** interaction networks
-- **Gene regulatory** networks  
+- **Gene regulatory** networks
 - **Molecular graphs**: atoms = nodes, bonds = edges
 
 <div class="text-xs opacity-60 mt-2">
@@ -225,7 +248,7 @@ Sources: STRING, ChEMBL, PubChem
 
 ### Clinical Cohorts
 
-- **Patient similarity** graphs from diagnoses, labs, demographics
+- **Patient similarity** graphs from diagnoses
 - **Care pathways** capturing temporal encounters
 - **Treatment cascades** and drug combinations
 
@@ -309,47 +332,122 @@ Sources: Spatial transcriptomics, multiplex imaging
 
 </div>
 
-<div class="mt-4 px-3 py-2 bg-yellow-50 border-l-4 border-yellow-400 rounded text-sm">
-
-💡 **Clinical translation:** Always pair model scores with **interpretability** (attention weights, Grad-CAM) so clinical reviewers can audit high-stakes predictions. Model performance means nothing without trust.
-
-</div>
 
 ---
 layout: fact
 ---
 
-## Real Example
+## Real Examples
 
-**Patient Similarity Graph**
+<div class="grid grid-cols-3 gap-6 mt-4">
 
-<v-clicks>
+<div>
 
-- **5,000** oncology patients  
-- Features: diagnoses, labs, genomics panels
-- Edges: cosine similarity > 0.8
-- **Predict:** 12-month survival (node classification)
+### 🧬 Drug Repurposing
 
-</v-clicks>
+<div class="text-xs opacity-70 mb-2">
+Heterogeneous knowledge graph
+</div>
 
-<v-click>
+```mermaid
+graph LR
+  Drug((Metformin)) --> Gene((PPARG))
+  Gene --> Disease((Diabetes))
+  Drug -. predicted .-> Disease2((Alzheimer's))
+  
+  style Drug fill:#90be6d
+  style Gene fill:#577590
+  style Disease fill:#f94144
+  style Disease2 fill:#f3722c
+```
 
-<div class="mt-8 p-4 bg-blue-50 rounded">
-
-**Key Insight:** Patient communities align with staging + comorbid burden → guides trial stratification
+<div class="text-xs mt-2 opacity-70">
+<strong>Task:</strong> Link prediction<br>
+<strong>Impact:</strong> Top-15 ranking for 80% of diseases
+</div>
 
 </div>
 
-</v-click>
+<div>
+
+### 🏥 Clinical Risk Prediction
+
+<div class="text-xs opacity-70 mb-2">
+Patient similarity graph
+</div>
+
+```mermaid
+graph TD
+  P1[Patient A<br/>DM, HTN] -.-> P2[Patient B<br/>DM, HTN, CKD]
+  P2 -.-> P3[Patient C<br/>DM, CKD]
+  
+  P2 --> Risk[High Risk<br/>Mortality]
+  
+  style P2 fill:#f94144
+  style Risk fill:#f94144
+```
+
+<div class="text-xs mt-2 opacity-70">
+<strong>Task:</strong> Node classification<br>
+<strong>Dataset:</strong> MIMIC-III<br>
+<strong>Improvement:</strong> +3-8% AUROC
+</div>
+
+</div>
+
+<div>
+
+### 🔬 Histopathology Analysis
+
+<div class="text-xs opacity-70 mb-2">
+Tissue scene graph
+</div>
+
+```mermaid
+graph LR
+  N1((Normal)) --- N2((Normal))
+  N2 --- A1((Adenoma))
+  A1 --- C1((Cancer))
+  
+  style N1 fill:#90be6d
+  style N2 fill:#90be6d
+  style A1 fill:#f9c74f
+  style C1 fill:#f94144
+```
+
+<div class="text-xs mt-2 opacity-70">
+<strong>Task:</strong> Graph classification<br>
+<strong>Method:</strong> 75 superpixels + GNN<br>
+<strong>Accuracy:</strong> State-of-the-art
+</div>
+
+</div>
+
+</div>
 
 <!--
 SPEAKER NOTES:
-- Cosine similarity: measures how similar two feature vectors are (ranges 0 to 1, where 1 = identical direction)
-- Threshold of 0.8 is high - we only connect very similar patients
-- Example features: ICD codes (diagnoses), lab values (tumor markers, CBC), genomic mutations (BRCA, TP53)
-- Why does this help? Similar patients likely respond similarly to treatments
-- Trial stratification: instead of random assignment, use graph communities to ensure balanced groups
-- Real insight from research: graph communities often correspond to cancer subtypes that weren't explicitly labeled
+**Three complementary approaches showing GNN versatility:**
+
+**Drug Repurposing (Knowledge Graph):**
+- Heterogeneous graph: drugs, genes, diseases, anatomies (42k nodes, 1.4M edges)
+- Task: predict which drugs treat which diseases via multi-hop paths
+- Example: Metformin (diabetes drug) → PPARG gene → Alzheimer's (gene associated with both)
+- Impact: ranks actual treatments in top-15 for 80% of diseases (out of 8k+ drugs)
+
+**Clinical Risk Prediction (Patient Similarity):**
+- Patient-patient graphs based on clinical similarity (diagnoses, labs, demographics)
+- Task: predict outcomes like mortality, readmission, treatment response
+- Example: similar patients cluster together, high-risk patients identified via graph propagation
+- Impact: 3-8% AUROC improvement over traditional ML on datasets like MIMIC-III
+
+**Histopathology (Spatial Scene Graphs):**
+- Convert tissue images to graphs: superpixels = nodes, spatial adjacency = edges
+- Task: classify tissue phenotype (normal vs adenoma vs cancer)
+- Method: SLIC segmentation (75 superpixels) + ResNet features + GNN classification
+- Impact: captures spatial tissue architecture that CNNs miss
+
+**Why this matters:** Each domain has unique graph structure, but GNNs provide unified framework for relational learning across all biomedical applications.
 -->
 
 ---
@@ -357,15 +455,11 @@ layout: center
 class: text-center
 ---
 
-# 🎯 Preview: The Attention Advantage
-
-<div class="text-2xl my-12 opacity-80">
-Not all neighbors are created equal
-</div>
+## Attention: Not all neighbors are created equal
 
 <v-click>
 
-<div class="grid grid-cols-2 gap-6 mt-8 text-left">
+<div class="grid grid-cols-2 gap-6 mt-4 text-left">
 
 <div>
 
@@ -387,7 +481,7 @@ graph LR
 
 </div>
 
-<div class="text-center text-sm opacity-70">
+<div class="text-center text-sm opacity-70" style="margin-top: -1rem;">
 Equal weights → noise included
 </div>
 
@@ -413,7 +507,7 @@ graph LR
 
 </div>
 
-<div class="text-center text-sm opacity-70">
+<div class="text-center text-sm opacity-70" style="margin-top: -1rem;">
 <strong>Learned weights</strong> → focus on what matters
 </div>
 
@@ -425,7 +519,7 @@ graph LR
 
 <v-click>
 
-<div class="mt-6 px-4 py-3 bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg text-sm">
+<div class="mt-2 px-4 py-3 bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg text-sm">
 
 **Key Insight:** Attention mechanisms learn to <span class="text-purple-600 font-bold">dynamically weight</span> each neighbor's contribution based on <span class="text-blue-600 font-bold">relevance</span>, not just connectivity!
 
@@ -562,11 +656,11 @@ For weighted/directed graphs, store edge attributes in separate tensor or use ad
 
 ## Example Adjacency Matrix
 
-<div class="grid grid-cols-2 gap-8">
+<div class="grid grid-cols-2 gap-8 mt-8">
 
 <div>
 
-### The Matrix
+### Matrix Structure
 
 |     | A | B | C | D |
 |-----|---|---|---|---|
@@ -584,7 +678,7 @@ Symmetric (undirected)
 
 <div>
 
-### The Graph
+### Visual Representation
 
 ```mermaid
 graph LR
@@ -602,7 +696,11 @@ graph LR
   style D fill:#90be6d,stroke:#333,stroke-width:2px
 ```
 
-<div class="text-sm opacity-70 mt-4">
+</div>
+
+### Connection Patterns
+
+<div class="text-sm opacity-70 mt-2">
 This matrix captures all connections
 </div>
 
@@ -1958,6 +2056,45 @@ Frame actionable next steps for students' own projects
 
 </div>
 
+---
+
+## Trustworthy AI: Beyond Accuracy
+
+<v-clicks depth="2">
+
+### The Challenge
+
+High AUROC ≠ Clinical readiness
+
+### What's Missing?
+
+1. **Calibration**
+   - Are predicted probabilities reliable?
+   - Temperature scaling, Platt scaling
+
+2. **Uncertainty Quantification**
+   - Bayesian GNNs, Monte Carlo dropout
+   - Flag low-confidence predictions
+
+3. **Counterfactual Testing**
+   - "What if this edge didn't exist?"
+   - Causal reasoning on graphs
+
+4. **Drift Monitoring**
+   - Distribution shift post-deployment
+   - Continuous validation pipelines
+
+</v-clicks>
+
+<v-click>
+
+<div class="mt-6 p-4 bg-yellow-50 rounded">
+
+**Remember:** A model performing well on historical data may fail catastrophically on new populations or hospitals without these safeguards.
+
+</div>
+
+</v-click>
 
 ---
 layout: center
@@ -2001,6 +2138,7 @@ Let's open the floor!
 </div>
 
 </v-click>
+
 
 ---
 layout: end
