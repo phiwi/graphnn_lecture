@@ -861,6 +861,70 @@ SPEAKER NOTES:
 
 ---
 
+## Normalization in Action
+
+<div class="grid grid-cols-2 gap-8 mt-8">
+
+<div>
+
+### Degree Normalization: $D^{-1/2}$
+
+<v-click>
+
+| Node | Degree | $D^{-1/2}$ |
+|------|--------|-------------|
+| **A** | 4 | 0.50 |
+| **B** | 4 | 0.50 |
+| **C** | 5 | 0.45 |
+| **D** | 3 | 0.58 |
+
+</v-click>
+
+<v-click>
+
+<div class="text-sm opacity-70 mt-2">
+**After adding self-loops:** A+I increases all degrees by 1<br>
+**Square root normalization:** Prevents degree explosion<br>
+**Intuition:** High-degree nodes get smaller weights
+</div>
+
+</v-click>
+
+</div>
+
+<div>
+
+### $\tilde{A} = D^{-1/2}(A + I)D^{-1/2}$
+
+<v-click>
+
+|     | A | B | C | D |
+|-----|---|---|---|---|
+| **A** | 0.33 | 0.29 | 0.26 | 0.00 |
+| **B** | 0.29 | 0.33 | 0.26 | 0.00 |
+| **C** | 0.26 | 0.26 | 0.22 | 0.29 |
+| **D** | 0.00 | 0.00 | 0.29 | 0.50 |
+
+</v-click>
+
+<v-click>
+
+### Why inverse square root?
+
+<div class="text-sm opacity-70 mt-2">
+**Intuition:** High-degree nodes contribute less per connection<br>
+**Math:** 1/√d normalizes variance (Central Limit Theorem)<br>
+**Result:** All nodes have similar "influence" regardless of degree
+</div>
+
+</v-click>
+
+</div>
+
+</div>
+
+---
+
 ## How Deep Should You Go?
 
 <div class="grid grid-cols-3 gap-4 mt-8">
