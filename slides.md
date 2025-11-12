@@ -1426,26 +1426,38 @@ If asked "What if important neighbor gets missed?":
 -->
 
 ---
-layout: two-cols
----
 
 ## GraphSAGE: Scalable Learning
 
-### Problem
+<div class="grid grid-cols-3 gap-6 mt-8">
 
-Standard GNN: aggregates ALL neighbors → memory explosion
+<div>
 
-### Solution
+### The Problem
+Standard GNN aggregates **ALL** neighbors → memory explosion
 
-Sample fixed k neighbors → constant memory
+### The Solution  
+Sample **fixed k** neighbors → constant memory usage
 
-### Key Benefit
+</div>
 
-Inductive learning → predictions on unseen nodes without retraining
+<div>
 
-::right::
+### Key Innovation: Inductive Learning
 
-<div class="text-xs mt-8">
+**Transductive (Traditional):**
+- Learns specific node embeddings
+- New nodes require full retraining ❌
+
+**Inductive (GraphSAGE):**
+- Learns the aggregation function
+- New nodes use existing function ✅
+
+</div>
+
+<div>
+
+<div style="transform: scale(0.8); transform-origin: top left; width: 125%; height: 125%;">
 
 ```mermaid
 graph TD
@@ -1464,7 +1476,12 @@ graph TD
   style B4 fill:#ddd,opacity:0.3
 ```
 
-Sample 3 of 500 neighbors
+**Sample 3 of 500 neighbors**  
+*Fixed k=25 in practice*
+
+</div>
+
+</div>
 
 </div>
 
