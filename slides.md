@@ -1668,9 +1668,9 @@ $$
 
 | Term | Doc A (oncology) | Doc B (cardiology) | Doc C (oncology) | IDF |
 |------|------------------|--------------------|------------------|-----|
-| chemotherapy | $2/120$ | $0/110$ | $1/95$ | $\log\frac{3}{1+2} = 0.18$ |
+| chemotherapy | $2/120$ | $0/110$ | $1/95$ | $\log\frac{3}{1+2} = 0.00$ |
 | arrhythmia | $0/120$ | $3/110$ | $0/95$ | $\log\frac{3}{1+1} = 0.41$ |
-| biomarkers | $1/120$ | $1/110$ | $2/95$ | $\log\frac{3}{1+3} = -0.12$ |
+| biomarkers | $1/120$ | $1/110$ | $2/95$ | $\log\frac{3}{1+3} = -0.29$ |
 
 </div>
 
@@ -1689,9 +1689,9 @@ SPEAKER NOTES:
 **TF-IDF Intuition:** TF (Term Frequency) = how often word appears in THIS doc. IDF (Inverse Document Frequency) = rarity across ALL docs. High score = common here BUT rare overall.
 
 **Example breakdown:**
-- **Chemotherapy:** TF=2/120=0.0167, IDF=log(3/3)=0.18. Medium IDF (appears in 2/3 docs). Good oncology marker.
+- **Chemotherapy:** TF=2/120=0.0167, IDF=log(3/3)=0.00. Medium IDF (appears in 2/3 docs). Good oncology marker.
 - **Arrhythmia:** TF=3/110=0.027, IDF=log(3/2)=0.41. HIGH IDF (only 1/3 docs). Perfect cardiology marker.
-- **Biomarkers:** In all 3 docs. IDF=log(3/4)=-0.12. Negative IDF = ubiquitous, not discriminative.
+- **Biomarkers:** In all 3 docs. IDF=log(3/4)=-0.29. Negative IDF = ubiquitous, not discriminative.
 
 **Why for GNNs:** TF-IDF vectors = initial node features X. Message passing refines based on graph structure. Alternative: BERT embeddings (modern, but TF-IDF interpretable).
 
