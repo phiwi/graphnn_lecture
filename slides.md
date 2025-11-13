@@ -1919,7 +1919,7 @@ SPEAKER NOTES:
 
 ## Use Case 3: Histopathology Scene Graphs
 
-<div class="grid grid-cols-2 gap-8">
+<div class="grid grid-cols-3 gap-6">
 
 <div>
 
@@ -1928,6 +1928,8 @@ SPEAKER NOTES:
 Standard CNNs see **pixels**, not **spatial structure**
 
 ### The GNN Approach
+
+<div style="transform: scale(0.5); transform-origin: top left; width: 200%; height: 80%; margin-bottom: -130px;">
 
 <v-clicks>
 
@@ -1938,16 +1940,20 @@ Standard CNNs see **pixels**, not **spatial structure**
 
 </v-clicks>
 
+</div>
+
 <v-click>
 
 ### Dataset
 
-<div class="text-sm">
+<div style="transform: scale(0.5); transform-origin: top left; width: 200%;">
+
 
 - **Chaoyang Hospital** colorectal cancer
 - **4 classes:** adenocarcinoma, adenoma, serrated, normal
 - **150×150 px** → 75 superpixels each
 - **Edges:** spatial adjacency (Region Adjacency Graph)
+
 
 </div>
 
@@ -1961,21 +1967,54 @@ Standard CNNs see **pixels**, not **spatial structure**
 
 ### Scene Graph Structure
 
+<div style="transform: scale(0.4); transform-origin: top left; width: 250%; height: 120%; margin-bottom: -800px;">
+
 ```mermaid
-graph LR
-  SP1((Superpixel 1<br/>Normal)) --- SP2((Superpixel 2<br/>Normal))
-  SP2 --- SP3((Superpixel 3<br/>Adenoma))
-  SP3 --- SP4((Superpixel 4<br/>Adenoma))
-  SP4 --- SP5((Superpixel 5<br/>Cancer))
+graph TD
+  %% 3x3 Grid Layout
+  A1((SP1<br/>Normal)) --- A2((SP2<br/>Normal))
+  A1 --- B1((SP4<br/>Normal))
+  A2 --- A3((SP3<br/>Adenoma))
+  A2 --- B2((SP5<br/>Adenoma))
+  A3 --- B3((SP6<br/>Adenoma))
   
-  style SP1 fill:#90be6d
-  style SP2 fill:#90be6d
-  style SP3 fill:#f9c74f
-  style SP4 fill:#f9c74f
-  style SP5 fill:#f94144
+  B1 --- B2
+  B1 --- C1((SP7<br/>Cancer))
+  B2 --- B3
+  B2 --- C2((SP8<br/>Cancer))
+  B3 --- C3((SP9<br/>Cancer))
+  
+  C1 --- C2
+  C2 --- C3
+  
+  %% Add diagonal connections for more realistic adjacency
+  A1 -.-> B2
+  A2 -.-> B1
+  A2 -.-> B3
+  A3 -.-> B2
+  B1 -.-> C2
+  B2 -.-> C1
+  B2 -.-> C3
+  B3 -.-> C2
+  
+  style A1 fill:#90be6d,stroke:#333,stroke-width:2px
+  style A2 fill:#90be6d,stroke:#333,stroke-width:2px
+  style A3 fill:#f9c74f,stroke:#333,stroke-width:2px
+  style B1 fill:#90be6d,stroke:#333,stroke-width:2px
+  style B2 fill:#f9c74f,stroke:#333,stroke-width:2px
+  style B3 fill:#f9c74f,stroke:#333,stroke-width:2px
+  style C1 fill:#f94144,stroke:#333,stroke-width:2px
+  style C2 fill:#f94144,stroke:#333,stroke-width:2px
+  style C3 fill:#f94144,stroke:#333,stroke-width:2px
 ```
 
+</div>
+
 </v-click>
+
+</div>
+
+<div>
 
 <v-click>
 
