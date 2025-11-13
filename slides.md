@@ -1797,7 +1797,7 @@ graph LR
 
 <v-click>
 
-**Impact:** For majority of diseases, actual treatment ranked **top-15** *(Comput. Biol. Med., 2022)*
+**Impact:** For majority of diseases, actual treatment ranked **top-15** *(Doshi & Chepuri, 2022)*
 
 </v-click>
 
@@ -1848,9 +1848,15 @@ How to leverage **complex, heterogeneous** EHR data for clinical predictions?
 
 <div>
 
+<div class="grid grid-cols-2 gap-4">
+
+<div>
+
 <v-click>
 
 ### Graph Construction Examples
+
+<div style="transform: scale(0.5); transform-origin: top left; width: 200%;">
 
 <div class="text-sm">
 
@@ -1867,7 +1873,13 @@ graph TD
 
 </div>
 
+</div>
+
 </v-click>
+
+</div>
+
+<div>
 
 <v-click>
 
@@ -1882,9 +1894,13 @@ graph TD
 
 </div>
 
-*J. Biomed. Inform., 2024*
+*Oss Boll et al., 2024*
 
 </v-click>
+
+</div>
+
+</div>
 
 </div>
 
@@ -2029,7 +2045,7 @@ graph TD
 
 </div>
 
-*TIPTEKNO, 2022*
+*Tepe & Bilgin, 2022*
 
 </v-click>
 
@@ -2182,6 +2198,28 @@ Let's open the floor!
 
 </v-click>
 
+---
+
+## References
+
+<div class="text-left text-sm">
+
+### Use Cases & Applications
+- **Doshi, P., & Chepuri, S.** (2022). A computational approach to drug repurposing using graph neural networks. *Computers in Biology and Medicine*, 150, 106152.
+- **Oss Boll, L., et al.** (2024). Graph neural networks for clinical risk prediction based on electronic health records: A survey. *Journal of Biomedical Informatics*, 152, 104618.
+- **Tepe, B., & Bilgin, G.** (2022). Graph Neural Networks for Colorectal Histopathological Image Classification. In *TIPTEKNO 2022: Proceedings of the 2022 Medical Technologies Congress* (pp. 1-4).
+
+### Graph Neural Network Foundations (not referenced)
+- **Hamilton, W. L.** (2020). Graph representation learning. In *Synthesis Lectures on Artificial Intelligence and Machine Learning* (Vol. 14, No. 3, pp. 1-159). Morgan & Claypool Publishers.
+- **Wu, Z., et al.** (2020). A comprehensive survey on graph neural networks. *IEEE Transactions on Neural Networks and Learning Systems*, 32(1), 4-24.
+- **Zhou, J., et al.** (2020). Graph neural networks: A review of methods and applications. *AI Open*, 1, 57-81.
+
+### Key Papers (not referenced)
+- **Kipf, T. N., & Welling, M.** (2017). Semi-supervised classification with graph convolutional networks. In *International Conference on Learning Representations (ICLR)*.
+- **Hamilton, W., Ying, Z., & Leskovec, J.** (2017). Inductive representation learning on large graphs. In *Advances in Neural Information Processing Systems (NeurIPS)*, 30.
+- **Veličković, P., et al.** (2018). Graph attention networks. In *International Conference on Learning Representations (ICLR)*.
+
+</div>
 
 ---
 layout: end
