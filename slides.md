@@ -137,6 +137,20 @@ Connect familiar neural network ideas to relational inductive bias<br>
 Ground the motivation in concrete biomedical structure before the math
 </div>
 
+<!--
+SPEAKER NOTES:
+**Relational Inductive Bias:** GNNs inject the assumption that relationships between entities matter for predictions. Unlike traditional ML models that assume samples are independent (IID - Independent and Identically Distributed), GNNs explicitly encode that "you are the average of your five closest colleagues" - your prediction depends on your neighbors.
+
+**Contrast with Non-Biased Assumption (IID):** Classical ML (logistic regression, random forests, CNNs) treats each sample as isolated, assuming no dependencies between data points. This works for independent observations but fails when entities interact, as they do in medicine.
+
+- IID assumption (Independent and Identically Distributed) is a key assumption in classical ML
+- In reality: patients in the same hospital share exposures, treatment protocols, even physicians' biases
+- Example: If 5 diabetes patients all see the same endocrinologist, their treatment outcomes are not independent
+- Tabular models (logistic regression, random forests, even standard neural nets) treat each row as isolated
+- Graphs let us explicitly model these dependencies: "This patient is similar to these other 3 patients"
+- The graph structure becomes an additional source of information for predictions
+-->
+
 ---
 
 ## The Central Question
@@ -213,16 +227,6 @@ Graphs encode structure that tabular models discard
 </div>
 
 </div>
-
-<!--
-SPEAKER NOTES:
-- IID assumption (Independent and Identically Distributed) is a key assumption in classical ML
-- In reality: patients in the same hospital share exposures, treatment protocols, even physicians' biases
-- Example: If 5 diabetes patients all see the same endocrinologist, their treatment outcomes are not independent
-- Tabular models (logistic regression, random forests, even standard neural nets) treat each row as isolated
-- Graphs let us explicitly model these dependencies: "This patient is similar to these other 3 patients"
-- The graph structure becomes an additional source of information for predictions
--->
 
 ---
 
@@ -341,6 +345,8 @@ layout: fact
 
 <div class="grid grid-cols-3 gap-6 mt-4">
 
+<v-click>
+
 <div>
 
 ### 🧬 Drug Repurposing
@@ -368,6 +374,10 @@ graph LR
 
 </div>
 
+</v-click>
+
+<v-click>
+
 <div>
 
 ### 🏥 Clinical Risk Prediction
@@ -394,6 +404,10 @@ graph TD
 </div>
 
 </div>
+
+</v-click>
+
+<v-click>
 
 <div>
 
@@ -423,31 +437,22 @@ graph LR
 
 </div>
 
+</v-click>
+
 </div>
 
 <!--
 SPEAKER NOTES:
-**Three complementary approaches showing GNN versatility:**
 
-**Drug Repurposing (Knowledge Graph):**
-- Heterogeneous graph: drugs, genes, diseases, anatomies (42k nodes, 1.4M edges)
-- Task: predict which drugs treat which diseases via multi-hop paths
-- Example: Metformin (diabetes drug) → PPARG gene → Alzheimer's (gene associated with both)
-- Impact: ranks actual treatments in top-15 for 80% of diseases (out of 8k+ drugs)
+**Three complementary approaches:**
 
-**Clinical Risk Prediction (Patient Similarity):**
-- Patient-patient graphs based on clinical similarity (diagnoses, labs, demographics)
-- Task: predict outcomes like mortality, readmission, treatment response
-- Example: similar patients cluster together, high-risk patients identified via graph propagation
-- Impact: 3-8% AUROC improvement over traditional ML on datasets like MIMIC-III
+**Drug Repurposing:** Heterogeneous graph (42k nodes, 1.4M edges) for link prediction. Ranks treatments in top-15 for 80% of diseases.
 
-**Histopathology (Spatial Scene Graphs):**
-- Convert tissue images to graphs: superpixels = nodes, spatial adjacency = edges
-- Task: classify tissue phenotype (normal vs adenoma vs cancer)
-- Method: SLIC segmentation (75 superpixels) + ResNet features + GNN classification
-- Impact: captures spatial tissue architecture that CNNs miss
+**Clinical Risk Prediction:** Patient similarity graphs improve AUROC by 3-8% over traditional ML on MIMIC-III.
 
-**Why this matters:** Each domain has unique graph structure, but GNNs provide unified framework for relational learning across all biomedical applications.
+**Histopathology:** Superpixel graphs with GNNs outperform CNN baselines for tissue classification.
+
+**Why this matters:** GNNs provide unified framework for relational learning across biomedical domains.
 -->
 
 ---
@@ -703,7 +708,7 @@ $$
 
 <v-click>
 
-### Why normalize $\tilde{A}$?
+### Why normalize $A$?
 
 $$
 \tilde{A} = D^{-1/2}(A + I)D^{-1/2}
@@ -766,17 +771,17 @@ SPEAKER NOTES:
 
 | Node | Degree | $D^{-1/2}$ |
 |------|--------|-------------|
-| **A** | 4 | 0.50 |
-| **B** | 4 | 0.50 |
-| **C** | 5 | 0.45 |
-| **D** | 3 | 0.58 |
+| **A** | 3 | 0.58 |
+| **B** | 3 | 0.58 |
+| **C** | 4 | 0.50 |
+| **D** | 2 | 0.71 |
 
 </v-click>
 
 <v-click>
 
 <div class="text-sm opacity-70 mt-2">
-**After adding self-loops:** A+I increases all degrees by 1<br>
+**Self-loops included:** The adjacency matrix already has diagonal elements<br>
 **Square root normalization:** Prevents degree explosion<br>
 **Intuition:** High-degree nodes get smaller weights
 </div>
@@ -793,10 +798,10 @@ SPEAKER NOTES:
 
 |     | A | B | C | D |
 |-----|---|---|---|---|
-| **A** | 0.33 | 0.29 | 0.26 | 0.00 |
-| **B** | 0.29 | 0.33 | 0.26 | 0.00 |
-| **C** | 0.26 | 0.26 | 0.22 | 0.29 |
-| **D** | 0.00 | 0.00 | 0.29 | 0.50 |
+| **A** | 0.33 | 0.33 | 0.29 | 0.00 |
+| **B** | 0.33 | 0.33 | 0.29 | 0.00 |
+| **C** | 0.29 | 0.29 | 0.25 | 0.35 |
+| **D** | 0.00 | 0.00 | 0.35 | 0.50 |
 
 </v-click>
 
@@ -1067,32 +1072,16 @@ graph LR
 
 <!--
 SPEAKER NOTES:
-**The Problem with Traditional GNNs:**
-- Standard message passing treats all neighbors equally (or weights by degree)
-- In medical graphs: not all similar patients are equally informative
-- Example: Patient A connects to 10 similar patients, but 3 have matching rare mutations → those 3 are more informative
 
-**How Attention Helps:**
-- GAT (Graph Attention Network) learns importance scores α_ij for each edge
-- High attention → neighbor strongly influences prediction
-- Low attention → neighbor gets downweighted (like the noisy connection)
-- These weights are learned during training, not fixed
+**Problem:** Traditional GNNs treat all neighbors equally, but not all connections are equally informative.
 
-**Medical Example:**
-- Patient A (breast cancer, BRCA1+, 55yo, Stage II)
-- Neighbor B (breast cancer, BRCA1+, 53yo, Stage II): HIGH attention (α=0.8) - very similar
-- Neighbor C (breast cancer, BRCA2+, 60yo, Stage III): MEDIUM attention (α=0.15) - partially similar
-- Neighbor D (ovarian cancer, 45yo): LOW attention (α=0.05) - weak relevance
+**Solution:** GAT learns attention scores α_ij for each edge, weighting neighbors by relevance.
 
-**Why This Matters:**
-- Better predictions by focusing on truly similar cases
-- Interpretability: can visualize which patients influenced a prediction
-- Robustness: automatically filters noisy connections
+**Medical Example:** Patient with breast cancer gets high attention from similar patients, low from unrelated cases.
 
-**Coming Up:**
-- We'll dive deep into how attention is computed in Part 2
-- You'll see the actual formulas and a visual walkthrough
-- For now, just remember: attention = learned importance weighting
+**Benefits:** Better predictions, interpretability, robustness to noise.
+
+**Coming Up:** Formulas and visual walkthrough in Part 2.
 -->
 
 ---
@@ -1363,68 +1352,6 @@ SPEAKER NOTES:
 
 </div>
 
-<!--
-SPEAKER NOTES FOR SCALABILITY QUESTION:
-
-**Why Scalability Matters in Medical AI:**
-- UK Biobank: 500k participants
-- MIMIC-IV: 300k+ ICU stays
-- Genomics databases: millions of protein interactions
-- Standard GNN: O(N × avg_degree × F) memory per layer → explodes quickly
-
-**GraphSAGE Scalability Deep Dive:**
-
-**The Core Innovation:**
-Instead of h_i^(l+1) = σ(Σ_{j∈N(i)} W h_j^(l)) aggregating over ALL neighbors,
-GraphSAGE uses: h_i^(l+1) = σ(W · AGGREGATE({h_j^(l) : j ∈ Sample(N(i), k)}))
-
-**Practical Example - Patient Graph:**
-- 100,000 patients in database
-- Average degree: 50 similar patients per patient
-- 2-layer GNN:
-  - Standard GNN: Each patient aggregates 50 + 50*50 = 2,550 messages
-  - GraphSAGE (k=25, k=10): Each patient aggregates 25 + 25*10 = 275 messages
-  - **Speedup: 9.3x** with minimal accuracy loss
-
-**Inductive Learning (Game-Changer for Medical AI):**
-Traditional GNN: Transductive (needs to see all nodes during training)
-- Problem: New patient arrives → must retrain entire model
-- Cost: Expensive, slow, impractical for real-time clinical use
-
-GraphSAGE: Inductive (learns aggregation function, not node embeddings)
-- Solution: New patient arrives → apply learned aggregation to their neighbors
-- Benefit: Deploy once, use forever (until concept drift)
-- Example: Train on 2023 patients, deploy for 2024 patients without retraining
-
-**Mini-batch Training:**
-GraphSAGE enables training on subgraphs:
-1. Sample batch of target nodes (e.g., 512 patients)
-2. Sample their k-hop neighborhoods
-3. Compute loss only on batch
-4. Update weights
-
-This is impossible with standard GNN (needs full graph in memory).
-
-**When to Use GraphSAGE:**
-✓ Graph has >10k nodes
-✓ High-degree nodes (avg degree >20)
-✓ New nodes arrive frequently (evolving medical databases)
-✓ Need mini-batch training for memory constraints
-✗ Small static graphs (<5k nodes) - standard GNN is fine
-✗ All nodes known at training time AND graph fits in memory
-
-**Question Deflection Tips:**
-If asked "How do you choose k?": 
-- Start with k=25 for layer 1, k=10 for layer 2
-- Validate by comparing to full-neighborhood baseline on small subset
-- If variance is high across runs, increase k or average multiple samples
-
-If asked "What if important neighbor gets missed?":
-- Use importance sampling (weight by edge features or prior attention scores)
-- Increase k for critical nodes (e.g., ICU patients vs outpatients)
-- Multiple forward passes with different samples, then average predictions
--->
-
 ---
 
 ## GraphSAGE: Scalable Learning
@@ -1488,48 +1415,22 @@ graph TD
 <!--
 SPEAKER NOTES:
 
-**Visual Explanation:**
-The diagram shows Patient A connected to 500 similar patients. Standard GNN would aggregate all 500, but GraphSAGE randomly samples only k=3 (or k=25 in practice). The grayed-out nodes are ignored in this forward pass.
+**The Scalability Breakthrough:** GraphSAGE shifts GNNs from transductive to inductive learning - the single most important advance for real-world deployment.
 
-**Live Demo Idea:**
-"Imagine you're building a patient risk model. Today you have 100k patients. Tomorrow, 50 new patients are admitted. With standard GNN, you'd need to retrain the entire model—expensive and slow. With GraphSAGE, you simply run inference on the new patients using the already-trained aggregation function. This is called INDUCTIVE learning."
+**Transductive vs Inductive - The Key Difference:**
+- **Transductive (traditional GNNs like GCN):** Learns embeddings for specific nodes in the training graph. New patients? Retrain everything from scratch. Like memorizing answers for specific test questions.
+- **Inductive (GraphSAGE):** Learns a general aggregation function that works on ANY graph structure. New patients use the trained function directly. Like learning math rules that work on any numbers.
 
-**Aggregation Options:**
-1. **Mean:** h_A = mean([h_N1, h_N2, h_N3]) - most common
-2. **Max pooling:** h_A = max([h_N1, h_N2, h_N3]) - captures outliers
-3. **LSTM:** Treats neighbors as sequence (requires ordering)
+**Why This Matters for Medicine:**
+- **EHRs grow continuously:** Train on Jan 2024 patients, predict on Feb 2024 patients without retraining
+- **Federated learning:** Train model at one hospital, deploy at another with different patients
+- **Real-time predictions:** New patient admitted? No need to wait for model retraining
 
-**Sampling Strategies:**
-- **Uniform:** Each neighbor has equal probability (simple, robust)
-- **Weighted:** Sample proportional to edge weights (e.g., similarity scores)
-- **Importance:** Use attention scores from previous epoch
-- **Layer-dependent:** k=25 for layer 1, k=10 for layer 2 (exponential receptive field)
+**The Sampling Trick:** Instead of aggregating all neighbors (memory explosion), sample fixed k=25. This makes computation constant per node, enabling inductive learning on massive graphs.
 
-**Common Student Questions:**
-
-Q: "Doesn't sampling lose information?"
-A: "Yes, but it's a worthwhile trade-off. In practice, with k=25, you capture ~95% of the information for most graphs. And you can run multiple samples and average predictions to reduce variance."
-
-Q: "How do you choose k?"
-A: "Start with k=25 for layer 1. Validate on a small subset using full neighborhood as baseline. If validation accuracy is within 1-2% of full model, k is sufficient. Common values: k∈{10,25,50}."
-
-Q: "What about mini-batch training?"
-A: "GraphSAGE enables it! Sample a batch of target nodes, then sample their k-hop neighborhoods. Compute loss only on the batch. This lets you train on graphs with billions of nodes using a single GPU."
-
-Q: "Inductive vs transductive—what's the difference?"
-A: "Transductive: Model learns embeddings for specific nodes seen during training. New node arrives → can't make prediction without retraining. Inductive: Model learns the aggregation FUNCTION. New node arrives → apply function to its neighbors → get embedding → make prediction. No retraining needed."
-
-**Medical Context Example:**
-"Consider the UK Biobank with 500k participants. Each person might be similar to 100+ others based on genomics, demographics, and health history. A 2-layer GNN would need to aggregate 100 + 100×100 = 10,100 neighbors per person. With GraphSAGE (k=25, k=10), you aggregate only 275 neighbors—a 37× reduction in computation—with minimal accuracy loss."
-
-**When NOT to Use GraphSAGE:**
-- Small graphs (<10k nodes) that fit entirely in GPU memory
-- Static graphs where no new nodes arrive (transductive setting is fine)
-- When you need exact aggregations (e.g., counting tasks)
-
-**Implementation:**
-PyTorch Geometric has built-in `SAGEConv` layer. Just specify in_channels, out_channels, and use `NeighborSampler` for mini-batch training.
+**Medical Impact:** Without inductive learning, GNNs would be research toys. With it, they're deployable at scale in clinical workflows.
 -->
+
 
 ---
 layout: section
