@@ -10,9 +10,9 @@ themeConfig:
   paginationY: b
 coverAuthor: "Philipp Wiesenbach"
 coverDate: 13.11.2025
-coverBackgroundUrl: background.jpeg
+coverBackgroundUrl: cover.jpg
 coverBackgroundSource: Himanshu Bhawnani
-coverBackgroundSourceUrl: coverBackgroundSourceUrl
+coverBackgroundSourceUrl: https://miro.medium.com/v2/resize:fit:1100/format:webp/1*2buWOv8vZdkYZcF_kFGQPg.jpeg
 ---
 
 <!-- markdownlint-disable MD033 -->
