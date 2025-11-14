@@ -5,14 +5,12 @@ theme: academic
 class: text-left text-white
 colorSchema: light
 mdc: true
-css:
-  - ./styles/custom.css
 themeConfig:
   paginationX: r
   paginationY: b
 coverAuthor: "Philipp Wiesenbach"
 coverDate: 13.11.2025
-coverBackgroundUrl: https://miro.medium.com/1*2buWOv8vZdkYZcF_kFGQPg.jpeg
+coverBackgroundUrl: background.jpeg
 coverBackgroundSource: Himanshu Bhawnani
 coverBackgroundSourceUrl: coverBackgroundSourceUrl
 ---

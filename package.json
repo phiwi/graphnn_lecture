@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "slidev --open",
     "build": "slidev build slides.md",
+  "export:pdf": "slidev export --format pdf --output slides.pdf",
+  "export:pdf:numbered": "npm run export:pdf && node scripts/number-pages.js slides.pdf slides-numbered.pdf",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -14,6 +16,8 @@
   "devDependencies": {
     "@slidev/cli": "^0.48.5",
     "markdown-it-container": "^3.0.0",
+    "pdf-lib": "^1.17.1",
+    "playwright-chromium": "^1.56.1",
     "slidev-theme-academic": "^2.1.0"
   },
   "dependencies": {
