@@ -2242,7 +2242,7 @@ class: text-center
 
 ```bash
 git clone https://github.com/phiwi/graphnn_lecture
-npx slidev slides.md
+npx @slidev/cli slides.md
 ```
 
 </div>

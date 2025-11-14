@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "slidev --open",
     "build": "slidev build slides.md",
-  "export:pdf": "slidev export --format pdf --output slides.pdf",
-  "export:pdf:numbered": "npm run export:pdf && node scripts/number-pages.js slides.pdf slides-numbered.pdf",
+    "export:pdf": "slidev export --format pdf --output slides.pdf",
+    "export:pdf:numbered": "npm run export:pdf && node scripts/number-pages.js slides.pdf slides-numbered.pdf",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
