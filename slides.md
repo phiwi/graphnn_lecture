@@ -12,7 +12,7 @@ coverAuthor: "Philipp Wiesenbach"
 coverDate: 13.11.2025
 coverBackgroundUrl: cover.jpg
 coverBackgroundSource: Himanshu Bhawnani
-coverBackgroundSourceUrl: https://miro.medium.com/v2/resize:fit:1100/format:webp/1*2buWOv8vZdkYZcF_kFGQPg.jpeg
+coverBackgroundSourceUrl: https://medium.com/nybles/graph-neural-networks-a-brief-analysis-17d52e546684
 ---
 
 <!-- markdownlint-disable MD033 -->
